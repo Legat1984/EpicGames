@@ -1,0 +1,36 @@
+// Импорт библиотек
+import React, { useState } from 'react';
+
+// Импорт роутеров
+import { BrowserRouter as Router } from 'react-router-dom';
+
+// Импорт провайдеров
+import { UserProvider } from './contexts/UserContext.js';
+import { ScreenProvider } from './contexts/ScreenContext.js';
+import { ThemeProvider } from 'styled-components';
+
+// Ипорт стилей
+import GlobalStyle from './style/GlobalStyle.js';
+import { darkThemeEpicGames } from './style/themes.js';
+
+// Импорт компонент
+import EpicGamesApp from './components/EpicGames/EpicGamesApp.js'
+
+const App = () => {
+  const [theme] = useState(darkThemeEpicGames);
+
+  return (
+    <Router>
+      <UserProvider>
+        <ScreenProvider>
+          <ThemeProvider theme={theme}>
+            <GlobalStyle />
+            <EpicGamesApp />
+          </ThemeProvider>
+        </ScreenProvider>
+      </UserProvider>
+    </Router>
+  );
+}
+
+export default App;
