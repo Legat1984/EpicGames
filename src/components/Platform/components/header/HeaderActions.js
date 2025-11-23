@@ -1,7 +1,6 @@
-// src/components/header/HeaderActions.js
 import styled from 'styled-components';
 import IconButton from './IconButton';
-import MobileMenuButton from './MobileMenuButton'; // Импортируем новый компонент
+import MobileMenuButton from './MobileMenuButton';
 import { Globe, User, Menu } from 'lucide-react';
 
 const StyledHeaderActions = styled.div`

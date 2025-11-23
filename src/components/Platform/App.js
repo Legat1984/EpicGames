@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import styled, { css } from 'styled-components';
-import { MessageCircle, X, Send, Users, Gamepad2, User, Menu, Globe, Heart, Share2, Download, Home, Book, Settings, LogOut } from 'lucide-react';
+import { MessageCircle, X, Send, Users, Gamepad2, Home, Book, Settings, LogOut } from 'lucide-react';
 
 import { ThemeProvider } from 'styled-components';
 import { ThemeContext, darkTheme, lightTheme } from './contexts/ThemeContext';
@@ -23,7 +23,7 @@ const Container = styled.div`
 const ChatIcon = styled.button`
   position: fixed;
   bottom: ${props => props.isMobile ? '1rem' : '1rem'};
-  ${props => props.isMobile ? 'right: 1rem;' : 'left: 1rem;'}
+  ${props => props.isMobile ? 'right: 1rem;' : 'right: 1rem;'}
   background-color: ${props => props.theme.primary};
   color: white;
   width: 56px;
@@ -43,7 +43,7 @@ const ChatIcon = styled.button`
 
 const ChatWindow = styled.div`
   position: fixed;
-  ${props => props.isMobile ? 'bottom: 0; right: 0; left: 0; height: 50%;' : 'bottom: 1rem; left: 1rem; width: 320px; height: 400px;'}
+  ${props => props.isMobile ? 'bottom: 0; right: 0; left: 0; height: 100%;' : 'bottom: 1rem; right: 1rem; width: 420px; height: 600px;'}
   background-color: ${props => props.theme.chat.background};
   border-radius: 12px;
   box-shadow: 0 8px 32px rgba(0,0,0,0.3);
