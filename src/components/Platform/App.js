@@ -7,8 +7,9 @@ import { ThemeContext, darkTheme, lightTheme } from './contexts/ThemeContext';
 import GlobalStyle from './styles/GlobalStyle';
 
 import Header from './components/layout/Header';
-
-
+import Main from './components/layout/Main';
+import HeroSection from './components/main/HeroSection';
+import GamesGrid from './components/main/GamesGrid';
 
 // Styled Components
 const Container = styled.div`
@@ -17,133 +18,6 @@ const Container = styled.div`
   color: ${props => props.theme.text};
   display: flex;
   flex-direction: column;
-`;
-
-const Main = styled.main`
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 2rem 1rem;
-  flex: 1;
-`;
-
-const HeroSection = styled.section`
-  text-align: center;
-  margin-bottom: 3rem;
-`;
-
-const SectionTitle = styled.h2`
-  font-size: 2.5rem;
-  font-weight: bold;
-  margin-bottom: 1rem;
-  color: ${props => props.theme.text};
-`;
-
-const SectionSubtitle = styled.p`
-  font-size: 1.25rem;
-  color: ${props => props.theme.textSecondary};
-  margin-bottom: 2rem;
-  max-width: 2xl;
-  margin-left: auto;
-  margin-right: auto;
-`;
-
-const ButtonGroup = styled.div`
-  display: flex;
-  gap: 1rem;
-  justify-content: center;
-  margin-bottom: 3rem;
-`;
-
-const Button = styled.button`
-  background-color: ${props => props.primary ? props.theme.primary : props.theme.surface};
-  color: ${props => props.primary ? '#fff' : props.theme.text};
-  padding: 0.75rem 1.5rem;
-  border-radius: 8px;
-  font-weight: 500;
-  border: 1px solid ${props => props.primary ? props.theme.primary : props.theme.border};
-  transition: all 0.2s ease;
-  
-  &:hover {
-    opacity: 0.9;
-    transform: translateY(-1px);
-  }
-`;
-
-const GamesGrid = styled.div`
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 1.5rem;
-  margin-bottom: 3rem;
-`;
-
-const GameCard = styled.div`
-  background-color: ${props => props.theme.card};
-  border-radius: 12px;
-  overflow: hidden;
-  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-  
-  &:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 8px 25px rgba(0,0,0,0.2);
-  }
-`;
-
-const GameImage = styled.img`
-  width: 100%;
-  height: 180px;
-  object-fit: cover;
-`;
-
-const GameContent = styled.div`
-  padding: 1.25rem;
-`;
-
-const GameTitle = styled.h3`
-  font-size: 1.25rem;
-  font-weight: bold;
-  margin-bottom: 0.5rem;
-  color: ${props => props.theme.text};
-`;
-
-const GameOriginalTitle = styled.p`
-  font-size: 0.875rem;
-  color: ${props => props.theme.textSecondary};
-  margin-bottom: 0.75rem;
-`;
-
-const GameDescription = styled.p`
-  font-size: 0.875rem;
-  color: ${props => props.theme.textSecondary};
-  margin-bottom: 1rem;
-  line-height: 1.5;
-`;
-
-const GameMeta = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 1rem;
-  font-size: 0.75rem;
-  color: ${props => props.theme.textSecondary};
-`;
-
-const GameActions = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-`;
-
-const ActionButton = styled.button`
-  padding: 0.5rem;
-  border-radius: 6px;
-  color: ${props => props.theme.textSecondary};
-  transition: all 0.2s ease;
-  
-  &:hover {
-    color: ${props => props.theme.text};
-    background-color: ${props => props.theme.surface};
-  }
 `;
 
 const ChatIcon = styled.button`
@@ -477,50 +351,8 @@ const App = () => {
           />
 
           <Main>
-            <HeroSection>
-              <SectionTitle>Переведенные Настольные Игры</SectionTitle>
-              <SectionSubtitle>
-                Собирайтесь с друзьями, играйте в любимые настольные игры в удобном онлайн-формате
-              </SectionSubtitle>
-              <ButtonGroup>
-                <Button primary>Начать Играть</Button>
-                <Button>Просмотреть Каталог</Button>
-              </ButtonGroup>
-            </HeroSection>
-
-            <GamesGrid>
-              {games.map(game => (
-                <GameCard key={game.id}>
-                  <GameImage src={game.image} alt={game.title} />
-                  <GameContent>
-                    <GameTitle>{game.title}</GameTitle>
-                    <GameOriginalTitle>{game.originalTitle}</GameOriginalTitle>
-                    <GameDescription>{game.description}</GameDescription>
-                    <GameMeta>
-                      <span>Игроки: {game.players}</span>
-                      <span>Время: {game.time}</span>
-                      <span>{game.category}</span>
-                    </GameMeta>
-                    <GameActions>
-                      <span style={{ fontSize: '0.875rem', color: currentTheme.textSecondary }}>
-                        {game.downloads} скачиваний
-                      </span>
-                      <div style={{ display: 'flex', gap: '0.5rem' }}>
-                        <ActionButton>
-                          <Download size={16} />
-                        </ActionButton>
-                        <ActionButton>
-                          <Heart size={16} fill={game.favorite ? currentTheme.primary : 'none'} color={game.favorite ? currentTheme.primary : currentTheme.textSecondary} />
-                        </ActionButton>
-                        <ActionButton>
-                          <Share2 size={16} />
-                        </ActionButton>
-                      </div>
-                    </GameActions>
-                  </GameContent>
-                </GameCard>
-              ))}
-            </GamesGrid>
+            <HeroSection theme={currentTheme} />
+            <GamesGrid games={games} theme={currentTheme} />
           </Main>
 
           <ChatIcon
