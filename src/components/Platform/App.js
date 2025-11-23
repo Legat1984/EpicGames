@@ -1,84 +1,14 @@
-import React, { useState, useEffect, useRef, createContext, useContext } from 'react';
-import styled, { ThemeProvider, createGlobalStyle, css } from 'styled-components';
-import { MessageCircle, X, Send, Users, Gamepad2, User, Menu, Globe, Star, Heart, Share2, Download, Home, Book, Settings, LogOut } from 'lucide-react';
+import React, { useState, useEffect, useRef } from 'react';
+import styled, { css } from 'styled-components';
+import { MessageCircle, X, Send, Users, Gamepad2, User, Menu, Globe, Heart, Share2, Download, Home, Book, Settings, LogOut } from 'lucide-react';
 
-// Theme Context
-const ThemeContext = createContext();
+import { ThemeProvider } from 'styled-components';
+import { ThemeContext, darkTheme, lightTheme } from './contexts/ThemeContext';
+import GlobalStyle from './styles/GlobalStyle';
 
-// Default Dark Theme
-const darkTheme = {
-  background: '#1a1a1a',
-  surface: '#2d2d2d',
-  card: '#3d3d3d',
-  text: '#ffffff',
-  textSecondary: '#b3b3b3',
-  primary: '#4f46e5',
-  secondary: '#7c3aed',
-  success: '#10b981',
-  warning: '#f59e0b',
-  error: '#ef4444',
-  border: '#404040',
-  chat: {
-    background: '#3d3d3d',
-    message: '#4d4d4d',
-    user: '#5d5d5d',
-    text: '#ffffff',
-    textSecondary: '#b3b3b3'
-  }
-};
+import Header from './components/layout/Header';
 
-// Light Theme
-const lightTheme = {
-  background: '#f5f5f5',
-  surface: '#ffffff',
-  card: '#ffffff',
-  text: '#1a1a1a',
-  textSecondary: '#666666',
-  primary: '#4f46e5',
-  secondary: '#7c3aed',
-  success: '#10b981',
-  warning: '#f59e0b',
-  error: '#ef4444',
-  border: '#e5e5e5',
-  chat: {
-    background: '#ffffff',
-    message: '#f5f5f5',
-    user: '#e5e5e5',
-    text: '#1a1a1a',
-    textSecondary: '#666666'
-  }
-};
 
-// Global Styles
-const GlobalStyle = createGlobalStyle`
-  * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  }
-  
-  body {
-    background-color: ${props => props.theme.background};
-    color: ${props => props.theme.text};
-    transition: background-color 0.3s ease, color 0.3s ease;
-  }
-  
-  button {
-    cursor: pointer;
-    border: none;
-    outline: none;
-    background: none;
-  }
-  
-  input, select, textarea {
-    background: ${props => props.theme.surface};
-    color: ${props => props.theme.text};
-    border: 1px solid ${props => props.theme.border};
-    border-radius: 8px;
-    padding: 8px 12px;
-  }
-`;
 
 // Styled Components
 const Container = styled.div`
@@ -87,134 +17,6 @@ const Container = styled.div`
   color: ${props => props.theme.text};
   display: flex;
   flex-direction: column;
-`;
-
-const Header = styled.header`
-  background-color: ${props => props.theme.surface};
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-  border-bottom: 1px solid ${props => props.theme.border};
-  position: relative;
-`;
-
-const HeaderContent = styled.div`
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 1rem;
-`;
-
-const TopHeader = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 1rem;
-  
-  @media (max-width: 768px) {
-    flex-direction: column;
-    gap: 1rem;
-  }
-`;
-
-const Logo = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  
-  h1 {
-    font-size: 1.5rem;
-    font-weight: bold;
-    color: ${props => props.theme.text};
-  }
-`;
-
-const Navigation = styled.nav`
-  display: flex;
-  gap: 2rem;
-  
-  a {
-    color: ${props => props.theme.textSecondary};
-    text-decoration: none;
-    font-weight: 500;
-    transition: color 0.2s ease;
-    
-    &:hover {
-      color: ${props => props.theme.primary};
-    }
-  }
-  
-  @media (max-width: 768px) {
-    display: none;
-  }
-`;
-
-const HeaderActions = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-`;
-
-const IconButton = styled.button`
-  color: ${props => props.theme.textSecondary};
-  padding: 0.5rem;
-  border-radius: 6px;
-  transition: all 0.2s ease;
-  
-  &:hover {
-    color: ${props => props.theme.text};
-    background-color: ${props => props.theme.card};
-  }
-`;
-
-const MobileMenuButton = styled.button`
-  display: none;
-  color: ${props => props.theme.textSecondary};
-  padding: 0.5rem;
-  
-  @media (max-width: 768px) {
-    display: block;
-  }
-`;
-
-const FavoritesBar = styled.div`
-  display: flex;
-  gap: 0.5rem;
-  overflow-x: auto;
-  padding: 0.5rem 0;
-  scrollbar-width: thin;
-  
-  &::-webkit-scrollbar {
-    height: 4px;
-  }
-  
-  &::-webkit-scrollbar-track {
-    background: ${props => props.theme.surface};
-  }
-  
-  &::-webkit-scrollbar-thumb {
-    background: ${props => props.theme.primary};
-    border-radius: 2px;
-  }
-`;
-
-const FavoriteGame = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.25rem;
-  min-width: 60px;
-  cursor: pointer;
-  
-  img {
-    width: 40px;
-    height: 40px;
-    border-radius: 8px;
-    object-fit: cover;
-  }
-  
-  span {
-    font-size: 0.75rem;
-    text-align: center;
-    color: ${props => props.theme.textSecondary};
-  }
 `;
 
 const Main = styled.main`
@@ -342,49 +144,6 @@ const ActionButton = styled.button`
     color: ${props => props.theme.text};
     background-color: ${props => props.theme.surface};
   }
-`;
-
-const FeaturesSection = styled.section`
-  background-color: ${props => props.theme.surface};
-  border-radius: 12px;
-  padding: 2rem;
-  margin-bottom: 3rem;
-`;
-
-const FeaturesGrid = styled.div`
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 2rem;
-  margin-top: 2rem;
-`;
-
-const FeatureCard = styled.div`
-  text-align: center;
-  padding: 1.5rem;
-`;
-
-const FeatureIcon = styled.div`
-  background-color: ${props => props.theme.primary + '20'};
-  width: 64px;
-  height: 64px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 0 auto 1rem;
-`;
-
-const FeatureTitle = styled.h4`
-  font-size: 1.125rem;
-  font-weight: bold;
-  margin-bottom: 0.5rem;
-  color: ${props => props.theme.text};
-`;
-
-const FeatureDescription = styled.p`
-  font-size: 0.875rem;
-  color: ${props => props.theme.textSecondary};
-  line-height: 1.5;
 `;
 
 const ChatIcon = styled.button`
@@ -699,8 +458,8 @@ const App = () => {
 
   const menuItems = [
     { icon: Home, label: 'Главная', href: '#' },
-    { icon: Book, label: 'Каталог', href: '#' },
-    { icon: MessageCircle, label: 'Чат', href: '#' },
+    { icon: Book, label: 'Игры', href: '#' },
+    { icon: Book, label: 'Магазин', href: '#' },
     { icon: Settings, label: 'Настройки', href: '#' },
     { icon: LogOut, label: 'Выйти', href: '#' }
   ];
@@ -710,41 +469,12 @@ const App = () => {
       <ThemeProvider theme={currentTheme}>
         <GlobalStyle />
         <Container>
-          <Header>
-            <HeaderContent>
-              <TopHeader>
-                <Logo>
-                  <Gamepad2 color={currentTheme.primary} size={32} />
-                  <h1>Настольные Игры Онлайн</h1>
-                </Logo>
-                <Navigation>
-                  <a href="#">Главная</a>
-                  <a href="#">Каталог</a>
-                  <a href="#">Чат</a>
-                  <a href="#">О нас</a>
-                </Navigation>
-                <HeaderActions>
-                  <IconButton onClick={toggleTheme}>
-                    <Globe size={20} />
-                  </IconButton>
-                  <IconButton>
-                    <User size={20} />
-                  </IconButton>
-                  <MobileMenuButton onClick={() => setShowMobileMenu(true)}>
-                    <Menu size={20} />
-                  </MobileMenuButton>
-                </HeaderActions>
-              </TopHeader>
-              <FavoritesBar>
-                {favorites.map(game => (
-                  <FavoriteGame key={game.id}>
-                    <img src={game.image} alt={game.title} />
-                    <span>{game.title}</span>
-                  </FavoriteGame>
-                ))}
-              </FavoritesBar>
-            </HeaderContent>
-          </Header>
+          <Header
+            theme={currentTheme}
+            toggleTheme={toggleTheme}
+            setShowMobileMenu={setShowMobileMenu}
+            favorites={favorites}
+          />
 
           <Main>
             <HeroSection>
@@ -793,17 +523,17 @@ const App = () => {
             </GamesGrid>
           </Main>
 
-          <ChatIcon 
-            isMobile={isMobile} 
+          <ChatIcon
+            isMobile={isMobile}
             onClick={toggleChat}
             theme={currentTheme}
           >
             <MessageCircle size={24} />
           </ChatIcon>
 
-          <ChatWindow 
-            isMobile={isMobile} 
-            isOpen={isChatOpen} 
+          <ChatWindow
+            isMobile={isMobile}
+            isOpen={isChatOpen}
             theme={currentTheme}
           >
             <ChatHeader>
@@ -812,17 +542,17 @@ const App = () => {
                 <X size={20} />
               </button>
             </ChatHeader>
-            
+
             <ChatTabs>
-              <ChatTab 
-                active={activeChat === 'general'} 
+              <ChatTab
+                active={activeChat === 'general'}
                 onClick={() => setActiveChat('general')}
                 theme={currentTheme}
               >
                 <Users size={16} /> Общий
               </ChatTab>
-              <ChatTab 
-                active={activeChat === 'room1'} 
+              <ChatTab
+                active={activeChat === 'room1'}
                 onClick={() => setActiveChat('room1')}
                 theme={currentTheme}
               >

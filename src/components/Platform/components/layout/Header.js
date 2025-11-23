@@ -1,0 +1,31 @@
+import styled from 'styled-components';
+import HeaderContent from '../header/HeaderContent';
+import TopHeader from '../header/TopHeader';
+import Logo from '../header/Logo';
+import Navigation from '../header/Navigation';
+import HeaderActions from '../header/HeaderActions';
+import FavoritesBar from '../header/FavoritesBar';
+
+const StyledHeader = styled.header`
+  background-color: ${props => props.theme.surface};
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  border-bottom: 1px solid ${props => props.theme.border};
+  position: relative;
+`;
+
+const Header = ({ theme, toggleTheme, setShowMobileMenu, favorites }) => {
+  return (
+    <StyledHeader theme={theme}>
+      <HeaderContent>
+        <TopHeader>
+          <Logo theme={theme} />
+          <Navigation theme={theme} />
+          <HeaderActions toggleTheme={toggleTheme} setShowMobileMenu={setShowMobileMenu} theme={theme} />
+        </TopHeader>
+        <FavoritesBar favorites={favorites} theme={theme} />
+      </HeaderContent>
+    </StyledHeader>
+  );
+};
+
+export default Header;
