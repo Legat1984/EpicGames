@@ -6,6 +6,7 @@ import { ThemeProvider } from 'styled-components';
 import { ThemeContext, darkTheme, lightTheme } from './contexts/ThemeContext';
 import { GamesProvider } from './contexts/GamesContext';
 import GlobalStyle from '../../style/GlobalStyle';
+import ErrorBoundary from '../../components/ErrorBoundary';
 
 import Header from './components/layout/Header';
 import Main from './components/layout/Main';
@@ -60,27 +61,29 @@ const App = () => {
       <ThemeProvider theme={currentTheme}>
         <GamesProvider>
           <GlobalStyle />
-          <Container>
-            <Header
-              theme={currentTheme}
-              toggleTheme={toggleTheme}
-              setShowMobileMenu={setShowMobileMenu}
-            />
+          <ErrorBoundary>
+            <Container>
+              <Header
+                theme={currentTheme}
+                toggleTheme={toggleTheme}
+                setShowMobileMenu={setShowMobileMenu}
+              />
 
-            <Main>
-              <HeroSection theme={currentTheme} />
-              <GamesManager theme={currentTheme} />
-            </Main>
+              <Main>
+                <HeroSection theme={currentTheme} />
+                <GamesManager theme={currentTheme} />
+              </Main>
 
-            <ChatManager theme={currentTheme} />
+              <ChatManager theme={currentTheme} />
 
-            <MobileMenu
-              showMobileMenu={showMobileMenu}
-              setShowMobileMenu={setShowMobileMenu}
-              theme={currentTheme}
-              menuItems={menuItems}
-            />
-          </Container>
+              <MobileMenu
+                showMobileMenu={showMobileMenu}
+                setShowMobileMenu={setShowMobileMenu}
+                theme={currentTheme}
+                menuItems={menuItems}
+              />
+            </Container>
+          </ErrorBoundary>
         </GamesProvider>
       </ThemeProvider>
     </ThemeContext.Provider>

@@ -4,6 +4,7 @@ import EpicGamesStartAppButtonContainer from "./EpicGamesStartAppButtonContainer
 import { UserContext } from '../../contexts/UserContext';
 
 import EpicGamesPlatform from '../Platform/App';
+import ErrorBoundary from '../ErrorBoundary';
 
 const EpicGamesStartApp = () => {
     const [hideByModality, setHideByModality] = useState(false);
@@ -21,7 +22,11 @@ const AppContent = () => {
 
     return (
         <>
-            {isAuthenticated ? <EpicGamesPlatform /> : <EpicGamesStartApp />}
+            {isAuthenticated ? (
+                <ErrorBoundary>
+                    <EpicGamesPlatform />
+                </ErrorBoundary>
+            ) : <EpicGamesStartApp />}
         </>
     );
 }

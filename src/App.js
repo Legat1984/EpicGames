@@ -15,6 +15,7 @@ import { epicGamesDarkTheme } from './style/themes.js';
 
 // Импорт компонент
 import EpicGamesApp from './components/EpicGames/EpicGamesApp.js'
+import ErrorBoundary from './components/ErrorBoundary.js';
 
 const App = () => {
   const [theme] = useState(epicGamesDarkTheme);
@@ -25,7 +26,9 @@ const App = () => {
         <ScreenProvider>
           <ThemeProvider theme={theme}>
             <GlobalStyle />
-            <EpicGamesApp />
+            <ErrorBoundary>
+              <EpicGamesApp />
+            </ErrorBoundary>
           </ThemeProvider>
         </ScreenProvider>
       </UserProvider>
