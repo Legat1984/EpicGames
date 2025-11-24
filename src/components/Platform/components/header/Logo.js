@@ -1,6 +1,6 @@
 import styled from 'styled-components';
-import EpicGamesLogotypeImage from '../../../assets/EpicGames/images/EpicGamesLogotype.png';
-import EpicGamesLogotypeText from '../../../assets/EpicGames/images/EpicGamesLogotypeText.svg';
+import EpicGamesLogotypeImage from '../../../../assets/EpicGames/images/EpicGamesLogotype.png';
+import EpicGamesLogotypeText from '../../../../assets/EpicGames/images/EpicGamesLogotypeText.svg';
 
 const StyledLogo = styled.div`
   display: flex;
@@ -8,12 +8,12 @@ const StyledLogo = styled.div`
   gap: 0.75rem;
   
   .logo-image {
-    width: 40px;
+    width: 120px;
     height: auto;
   }
   
   .logo-text {
-    width: 100px;
+    width: 200px;
     height: auto;
     filter: ${props => props.theme.mode === 'dark' ? 'invert(1)' : 'invert(0)'};
   }
