@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { useGames } from '../../contexts/GamesContext';
 import HeaderContent from '../header/HeaderContent';
 import TopHeader from '../header/TopHeader';
 import Logo from '../header/Logo';
@@ -13,7 +14,9 @@ const StyledHeader = styled.header`
   position: relative;
 `;
 
-const Header = ({ theme, toggleTheme, setShowMobileMenu, favorites }) => {
+const Header = ({ theme, toggleTheme, setShowMobileMenu }) => {
+  const { favorites } = useGames();
+  
   return (
     <StyledHeader theme={theme}>
       <HeaderContent>

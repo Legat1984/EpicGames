@@ -1,0 +1,204 @@
+import React, { useRef, useEffect } from 'react';
+import styled, { css } from 'styled-components';
+import { X, Send, Users, Gamepad2 } from 'lucide-react';
+
+const ChatWindowStyled = styled.div`
+  position: fixed;
+  ${props => props.isMobile ? 'bottom: 0; right: 0; left: 0; height: 100%;' : 'bottom: 1rem; right: 1rem; width: 420px; height: 600px;'}
+  background-color: ${props => props.theme.chat.background};
+  border-radius: 12px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+  z-index: 1000;
+  display: ${props => props.isOpen ? 'flex' : 'none'};
+  flex-direction: column;
+  border: 1px solid ${props => props.theme.border};
+`;
+
+const ChatHeader = styled.div`
+  background-color: ${props => props.theme.primary};
+  color: white;
+  padding: 1rem;
+  border-radius: 12px 12px 0 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
+
+const ChatTabs = styled.div`
+  display: flex;
+  border-bottom: 1px solid ${props => props.theme.border};
+`;
+
+const ChatTab = styled.button`
+  flex: 1;
+  padding: 0.75rem;
+  text-align: center;
+  background: ${props => props.active ? props.theme.surface : 'transparent'};
+  color: ${props => props.active ? props.theme.text : props.theme.textSecondary};
+  border-bottom: ${props => props.active ? `2px solid ${props.theme.primary}` : 'none'};
+  font-weight: 500;
+  
+  &:hover {
+    color: ${props => props.theme.text};
+  }
+`;
+
+const ChatMessages = styled.div`
+  flex: 1;
+  overflow-y: auto;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+`;
+
+const Message = styled.div`
+  display: flex;
+  gap: 0.75rem;
+  align-items: flex-start;
+  
+  ${props => props.isOwn && css`
+    flex-direction: row-reverse;
+  `}
+`;
+
+const MessageAvatar = styled.img`
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  object-fit: cover;
+`;
+
+const MessageContent = styled.div`
+  background-color: ${props => props.isOwn ? props.theme.primary : props.theme.chat.message};
+  color: ${props => props.isOwn ? 'white' : props.theme.chat.text};
+  padding: 0.75rem;
+  border-radius: 12px;
+  max-width: 80%;
+  
+  ${props => props.isOwn && css`
+    border-bottom-right-radius: 4px;
+  `}
+  
+  ${props => !props.isOwn && css`
+    border-bottom-left-radius: 4px;
+  `}
+`;
+
+const MessageInfo = styled.div`
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 0.25rem;
+  font-size: 0.75rem;
+  color: ${props => props.theme.chat.textSecondary};
+`;
+
+const ChatInput = styled.div`
+  padding: 1rem;
+  border-top: 1px solid ${props => props.theme.border};
+  display: flex;
+  gap: 0.5rem;
+`;
+
+const ChatInputField = styled.input`
+  flex: 1;
+  background-color: ${props => props.theme.surface};
+  color: ${props => props.theme.text};
+  border: 1px solid ${props => props.theme.border};
+  border-radius: 20px;
+  padding: 0.75rem 1rem;
+  font-size: 0.875rem;
+`;
+
+const ChatSendButton = styled.button`
+  background-color: ${props => props.theme.primary};
+  color: white;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+const ChatWindow = ({ 
+  isChatOpen, 
+  toggleChat, 
+  activeChat, 
+  setActiveChat, 
+  messages, 
+  message, 
+  setMessage, 
+  sendMessage,
+  isMobile,
+  theme 
+}) => {
+  const chatEndRef = useRef(null);
+
+  useEffect(() => {
+    chatEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+  }, [messages, activeChat]);
+
+  return (
+    <ChatWindowStyled
+      isMobile={isMobile}
+      isOpen={isChatOpen}
+      theme={theme}
+    >
+      <ChatHeader>
+        <h3>Чат</h3>
+        <button onClick={toggleChat}>
+          <X size={20} />
+        </button>
+      </ChatHeader>
+
+      <ChatTabs>
+        <ChatTab
+          active={activeChat === 'general'}
+          onClick={() => setActiveChat('general')}
+          theme={theme}
+        >
+          <Users size={16} /> Общий
+        </ChatTab>
+        <ChatTab
+          active={activeChat === 'room1'}
+          onClick={() => setActiveChat('room1')}
+          theme={theme}
+        >
+          <Gamepad2 size={16} /> Комната 1
+        </ChatTab>
+      </ChatTabs>
+
+      <ChatMessages>
+        {messages[activeChat]?.map(msg => (
+          <Message key={msg.id} isOwn={msg.isOwn}>
+            <MessageAvatar src={msg.avatar} alt={msg.user} />
+            <MessageContent isOwn={msg.isOwn}>
+              <div>{msg.text}</div>
+              <MessageInfo>
+                <span>{msg.user}</span>
+                <span>{msg.time}</span>
+              </MessageInfo>
+            </MessageContent>
+          </Message>
+        ))}
+        <div ref={chatEndRef} />
+      </ChatMessages>
+
+      <ChatInput>
+        <ChatInputField
+          value={message}
+          onChange={(e) => setMessage(e.target.value)}
+          onKeyPress={(e) => e.key === 'Enter' && sendMessage()}
+          placeholder="Введите сообщение..."
+          theme={theme}
+        />
+        <ChatSendButton onClick={sendMessage} theme={theme}>
+          <Send size={18} />
+        </ChatSendButton>
+      </ChatInput>
+    </ChatWindowStyled>
+  );
+};
+
+export default ChatWindow;
