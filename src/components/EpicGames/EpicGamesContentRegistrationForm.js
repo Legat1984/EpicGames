@@ -26,6 +26,7 @@ const Label = styled.label`
     position: absolute;
     top: 0;
     left: 10px;
+    font-family: 'fontKaushanScript', ${props => props.theme.fontFamily || "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif"};
     font-size: 20px;
     font-weight: 400;
     color: #FFFFFF;
@@ -44,6 +45,7 @@ const Input = styled.input`
     border-radius: 5px;
     background-color: #101117;
 
+    font-family: 'fontKaushanScript', ${props => props.theme.fontFamily || "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif"};
     font-size: 16px;
     font-weight: 400;
     color: #FFFFFF;
@@ -71,6 +73,7 @@ const Button = styled.button`
     margin: 4px 0;
     margin-bottom: 15px;
     background-color: #0074E0;
+    font-family: 'fontKaushanScript', ${props => props.theme.fontFamily || "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif"};
     font-size: 16px;
     font-weight: 600;
     line-height: 150%;
@@ -100,6 +103,7 @@ const ButtonLink = styled.button`
     margin: 8px 4px;
     border: none;
     background-color: unset;
+    font-family: 'fontKaushanScript', ${props => props.theme.fontFamily || "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif"};
     font-size: 16px;
     font-weight: 600;
     line-height: 150%;

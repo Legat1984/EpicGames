@@ -35,11 +35,13 @@ const Icon = styled.img`
 const Description = styled.p`
   padding: 0.5vmin;
   color: white;
+  font-family: 'fontKaushanScript', ${props => props.theme.fontFamily || "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif"};
   font-size: 1.2vmin;
 `;
 
 const NameGame = styled.span`
   color: #86898E;
+  font-family: 'fontKaushanScript', ${props => props.theme.fontFamily || "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif"};
   font-size: 1.5vmin;
   font-weight: 600;
 `;

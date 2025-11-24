@@ -24,6 +24,7 @@ const Label = styled.label`
     position: absolute;
     top: 0;
     left: 10px;
+    font-family: 'fontKaushanScript', ${props => props.theme.fontFamily || "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif"};
     font-size: 20px;
     font-weight: 400;
     color: #FFFFFF;
@@ -35,14 +36,15 @@ const Label = styled.label`
 `;
 
 const Input = styled.input`
-    width: auto;
-    height: 25px;
-    padding: 8px;
+    width: 100%;
+    height: 45px;
+    padding: 12px 15px;
     border: 1px solid #4A4C50;
     border-radius: 5px;
     background-color: #101117;
 
-    font-size: 18px;
+    font-family: 'fontKaushanScript', ${props => props.theme.fontFamily || "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif"};
+    font-size: 16px;
     font-weight: 400;
     color: #FFFFFF;
     line-height: 150%;
@@ -55,6 +57,11 @@ const Input = styled.input`
     &:focus + ${Label} {
         opacity: 1;
         transform: translateY(-35px);
+    }
+    
+    @media (max-width: 768px) {
+        height: 50px;
+        font-size: 18px;
     }
 `;
 

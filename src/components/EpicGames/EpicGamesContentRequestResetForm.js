@@ -9,6 +9,15 @@ const Form = styled.form`
     flex-direction: column;
     align-items: center;
     width: 100%;
+    max-width: 350px;
+    
+    @media (max-width: 768px) {
+        width: 100%;
+        height: 100vh;
+        max-width: 100%;
+        padding: 20px;
+        box-sizing: border-box;
+    }
 `;
 
 const FormInputContainer = styled.div`
@@ -24,6 +33,7 @@ const Label = styled.label`
     position: absolute;
     top: 0;
     left: 10px;
+    font-family: 'fontKaushanScript', ${props => props.theme.fontFamily || "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif"};
     font-size: 20px;
     font-weight: 400;
     color: #FFFFFF;
@@ -35,14 +45,15 @@ const Label = styled.label`
 `;
 
 const Input = styled.input`
-    width: auto;
-    height: 25px;
-    padding: 8px;
+    width: 100%;
+    height: 45px;
+    padding: 12px 15px;
     border: 1px solid #4A4C50;
     border-radius: 5px;
     background-color: #101117;
 
-    font-size: 18px;
+    font-family: 'fontKaushanScript', ${props => props.theme.fontFamily || "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif"};
+    font-size: 16px;
     font-weight: 400;
     color: #FFFFFF;
     line-height: 150%;
@@ -56,14 +67,20 @@ const Input = styled.input`
         opacity: 1;
         transform: translateY(-35px);
     }
+    
+    @media (max-width: 768px) {
+        height: 50px;
+        font-size: 18px;
+    }
 `;
 
 const Button = styled.button`
     width: 100%;
     height: 50px;
-    margin: 4px;
-    margin-bottom: 10px;
+    margin: 4px 0;
+    margin-bottom: 15px;
     background-color: #0074E0;
+    font-family: 'fontKaushanScript', ${props => props.theme.fontFamily || "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif"};
     font-size: 16px;
     font-weight: 600;
     line-height: 150%;
@@ -82,12 +99,18 @@ const Button = styled.button`
         background-color: #cccccc;
         cursor: not-allowed;
     }
+    
+    @media (max-width: 768px) {
+        height: 55px;
+        font-size: 18px;
+    }
 `;
 
 const ButtonLink = styled.button`
-    margin: 4px;
+    margin: 8px 4px;
     border: none;
     background-color: unset;
+    font-family: 'fontKaushanScript', ${props => props.theme.fontFamily || "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif"};
     font-size: 16px;
     font-weight: 600;
     line-height: 150%;
@@ -98,6 +121,10 @@ const ButtonLink = styled.button`
     &:hover {
         color: #0056b3;
         text-decoration: underline;
+    }
+    
+    @media (max-width: 768px) {
+        font-size: 18px;
     }
 `;
 

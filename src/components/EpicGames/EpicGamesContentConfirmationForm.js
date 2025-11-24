@@ -25,6 +25,7 @@ const Label = styled.label`
     position: absolute;
     top: 0;
     left: 10px;
+    font-family: 'fontKaushanScript', ${props => props.theme.fontFamily || "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif"};
     font-size: 20px;
     font-weight: 400;
     color: #FFFFFF;
@@ -43,6 +44,7 @@ const Input = styled.input`
     border-radius: 5px;
     background-color: #101117;
 
+    font-family: 'fontKaushanScript', ${props => props.theme.fontFamily || "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif"};
     font-size: 16px;
     font-weight: 400;
     color: #FFFFFF;
@@ -67,9 +69,10 @@ const Input = styled.input`
 const Button = styled.button`
     width: 100%;
     height: 50px;
-    margin: 4px;
-    margin-bottom: 10px;
+    margin: 4px 0;
+    margin-bottom: 15px;
     background-color: #0074E0;
+    font-family: 'fontKaushanScript', ${props => props.theme.fontFamily || "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif"};
     font-size: 16px;
     font-weight: 600;
     line-height: 150%;
@@ -87,6 +90,11 @@ const Button = styled.button`
         color: #000000;
         background-color: #cccccc;
         cursor: not-allowed;
+    }
+    
+    @media (max-width: 768px) {
+        height: 55px;
+        font-size: 18px;
     }
 `;
 

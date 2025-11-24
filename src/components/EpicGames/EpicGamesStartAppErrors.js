@@ -9,6 +9,7 @@ const ErrorMessage = styled.div`
     text-align: center;
     color: white;
     margin: 10px 0;
+    font-family: 'fontKaushanScript', ${props => props.theme.fontFamily || "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif"};
     font-size: 16px;
     background-color: #ff4444;
     border: 1px solid #ff6666;
@@ -30,6 +31,7 @@ const CloseButton = styled.button`
     border: none;
     color: white;
     cursor: pointer;
+    font-family: 'fontKaushanScript', ${props => props.theme.fontFamily || "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif"};
     font-size: 16px;
 `;
 
