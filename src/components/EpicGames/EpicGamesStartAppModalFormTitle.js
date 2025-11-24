@@ -3,8 +3,14 @@ import styled from 'styled-components';
 const H1 = styled.h1`
     text-align: center;
     color: white;
-    font-size: 28px;
-    margin-bottom: 15px;
+    font-size: 24px;
+    margin-bottom: 20px;
+    font-weight: 600;
+    
+    @media (max-width: 768px) {
+        font-size: 22px;
+        margin-bottom: 15px;
+    }
 `;
 
 const Title = ({ children }) => {

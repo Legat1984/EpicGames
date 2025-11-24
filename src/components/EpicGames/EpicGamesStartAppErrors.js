@@ -2,18 +2,24 @@ import React, { useEffect } from 'react';
 import styled from 'styled-components';
 
 const ErrorMessage = styled.div`
-    width: calc(100% - 20px);
-    padding: 10px;
+    width: 100%;
+    padding: 12px;
     display: flex;
     justify-content: center;
     text-align: center;
     color: white;
-    margin: 10px;
-    font-size: 18px;
-    background-color: #333333;
-    border: 1px solid #666666;
+    margin: 10px 0;
+    font-size: 16px;
+    background-color: #ff4444;
+    border: 1px solid #ff6666;
     border-radius: 8px;
     position: relative;
+    word-wrap: break-word;
+    
+    @media (max-width: 768px) {
+        font-size: 14px;
+        padding: 10px;
+    }
 `;
 
 const CloseButton = styled.button`

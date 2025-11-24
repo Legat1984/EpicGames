@@ -8,34 +8,38 @@ import EpicGamesLogotypeText from '../../assets/EpicGames/images/EpicGamesLogoty
 const LogoContainer = styled.div`
   position: ${({ $forTheForm }) => ($forTheForm ? 'relative' : 'absolute')};
   display: flex;
-  flex-direction: ${({ $orientation, $device, $horizontalOnly, $forTheForm }) =>
-    ($forTheForm 
-      ? ($orientation === 'landscape' && $device === 'mobile' ? 'row' : 'column') 
-      : ($orientation === 'landscape' || $horizontalOnly) ? 'row' : 'column')};
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: ${({ $forTheForm, $orientation, $device }) => 
-    ($forTheForm ? ($orientation === 'landscape' && $device === 'mobile' ? '35%' : '50%') : 'max-content')};
+  width: 100%;
   max-width: 600px;
+  padding: 10px;
+  
+  @media (max-width: 768px) {
+    padding: 5px;
+  }
 `;
 
 const LogoImage = styled.img`
   position: relative;
-  width: ${({ $forTheForm, $orientation, $device }) => 
-    ($forTheForm  ? ($orientation === 'landscape' && $device === 'mobile' ? '50%' : '70%') 
-                  : ($orientation === 'portrait' && $device === 'mobile' ? '25vw' : '15vw'))};
+  width: 150px;
   height: auto;
   max-width: 200px;
+  
+  @media (max-width: 768px) {
+    width: 120px;
+  }
 `;
 
 const LogoText = styled.img`
-  margin-left: ${({ $orientation, $forTheForm }) => ($forTheForm ? '0' : ($orientation === 'landscape' ? '1vw' : '0'))};
-  margin-top: ${({ $orientation, $forTheForm }) => ($forTheForm ? '0' : ($orientation === 'portrait' ? '1vw' : '0'))};
-  width: ${({ $forTheForm, $orientation, $device }) => 
-    ($forTheForm  ? ($orientation === 'landscape' && $device === 'mobile' ? '70%' : '100%') 
-                  : ($orientation === 'portrait' && $device === 'mobile' ? '50vw' : '35vw'))};
-  max-width: 400px;
+  margin-top: 10px;
+  width: 200px;
+  max-width: 300px;
   height: auto;
+  
+  @media (max-width: 768px) {
+    width: 160px;
+  }
 `;
 
 const StyledLink = styled.a`

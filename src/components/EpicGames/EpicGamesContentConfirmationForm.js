@@ -9,6 +9,7 @@ const Form = styled.form`
     flex-direction: column;
     align-items: center;
     width: 100%;
+    max-width: 350px;
 `;
 
 const FormInputContainer = styled.div`
@@ -16,8 +17,8 @@ const FormInputContainer = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
-  margin-top: 30px;
-  margin-bottom: 20px;
+  margin-top: 25px;
+  margin-bottom: 15px;
 `;
 
 const Label = styled.label`
@@ -35,14 +36,14 @@ const Label = styled.label`
 `;
 
 const Input = styled.input`
-    width: auto;
-    height: 25px;
-    padding: 8px;
+    width: 100%;
+    height: 45px;
+    padding: 12px 15px;
     border: 1px solid #4A4C50;
     border-radius: 5px;
     background-color: #101117;
 
-    font-size: 18px;
+    font-size: 16px;
     font-weight: 400;
     color: #FFFFFF;
     line-height: 150%;
@@ -55,6 +56,11 @@ const Input = styled.input`
     &:focus + ${Label} {
         opacity: 1;
         transform: translateY(-35px);
+    }
+    
+    @media (max-width: 768px) {
+        height: 50px;
+        font-size: 18px;
     }
 `;
 

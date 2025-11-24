@@ -1,16 +1,12 @@
 import styled from "styled-components";
 
 const Button = styled.button`
-    width: ${({ $orientation, $device }) => ($orientation === 'landscape' && $device === 'mobile' ? '60%' : '40%')};
-    max-width: 150px;
-    height: ${({ $orientation, $device }) => ($orientation === 'landscape' && $device === 'mobile' ? '15%' : '15%')};
-    max-height: 30px;
-    margin-bottom: ${({ $orientation, $device }) => ($orientation === 'landscape' && $device === 'mobile' ? '10vmin' : '10vmin')};
-    margin-left: 1vmin;
-    margin-right: ${({ $orientation, $device }) => ($orientation === 'landscape' && $device === 'mobile' ? '5vmin' : '3vw')};
-    margin-left: ${({ $orientation, $device }) => ($orientation === 'landscape' && $device === 'mobile' ? '0' : '3vw')};
+    width: 200px;
+    max-width: 100%;
+    height: 40px;
+    margin: 10px 5px;
     border-radius: 5px; 
-    font-size: clamp(11px, 1vmin, 14px); 
+    font-size: 16px; 
     cursor: pointer;
     transition: all 0.3s ease;
 
@@ -18,6 +14,13 @@ const Button = styled.button`
         background-color: transparent;
         box-shadow: 0 0 10px 2px ${(props) => props.$hoverColor};
         border-width: 2px;
+    }
+    
+    @media (max-width: 768px) {
+        width: 100%;
+        height: 45px;
+        font-size: 18px;
+        margin: 8px 0;
     }
 `;
 

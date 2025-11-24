@@ -20,16 +20,22 @@ const Modal = styled.div`
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: ${({ $orientation, $device }) => ($orientation === 'landscape' && $device === 'mobile' ? '100%' : '50%')};
-    height: ${({ $orientation, $device }) => ($orientation === 'landscape' && $device === 'mobile' ? '100%' : 'auto')};
-    min-width: ${({ $device }) => ($device === 'mobile' ? '100%' : '280px')};
-    max-width: ${({ $device }) => ($device === 'mobile' ? '100%' : '357px')};
-    min-height: ${({ $device }) => ($device === 'mobile' ? '100%' : 'auto')};
-    max-height: ${({ $device }) => ($device === 'mobile' ? '100%' : 'auto')};
-    background-color: rgba(21, 23, 30, 0.9);
+    width: 90%;
+    max-width: 400px;
+    max-height: 90vh;
+    background-color: rgba(21, 23, 30, 0.95);
     padding: 20px;
-    border-radius: ${({ $orientation, $device }) => ($orientation === 'landscape' && $device === 'mobile' ? '16px' : '8px')};
+    border-radius: 8px;
     z-index: 1000;
+    overflow-y: auto;
+    
+    @media (max-width: 768px) {
+        width: 95%;
+        height: auto;
+        max-height: 95vh;
+        padding: 15px;
+        border-radius: 12px;
+    }
 `;
 
 const Overlay = styled.div`
@@ -52,8 +58,8 @@ const Header = styled.header`
 
 const CloseButton = styled.button`
     position: absolute;
-    top: ${({ $device }) => ($device === 'mobile' ? '30px' : '10px')};
-    right: ${({ $device }) => ($device === 'mobile' ? '30px' : '10px')};
+    top: 15px;
+    right: 15px;
     width: 30px;
     height: 30px;
     background: url(${closeFormButtonSVG}) no-repeat center center;
@@ -64,6 +70,13 @@ const CloseButton = styled.button`
 
     &:hover {
         filter: invert(29%) sepia(86%) saturate(7494%) hue-rotate(355deg) brightness(104%) contrast(101%);
+    }
+    
+    @media (max-width: 768px) {
+        top: 10px;
+        right: 10px;
+        width: 25px;
+        height: 25px;
     }
 `;
 

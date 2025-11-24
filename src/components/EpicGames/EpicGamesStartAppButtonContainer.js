@@ -6,17 +6,25 @@ import EpicGamesStartAppModalForm from './EpicGamesStartAppModalForm';
 
 const Container = styled.div`
     position: absolute;
-    bottom: ${({ $orientation, $device }) => ($orientation === 'landscape' && $device === 'mobile' ? 'auto' : '0')};
-    right: ${({ $orientation, $device }) => ($orientation === 'landscape' && $device === 'mobile' ? '0' : 'auto')};
-    width: ${({ $orientation, $device }) => ($orientation === 'landscape' && $device === 'mobile' ? '30%' : '100%')};
-    min-width: 300px;
-    height: ${({ $orientation, $device }) => ($orientation === 'landscape' && $device === 'mobile' ? '100%' : '20%')};
-    min-height: 200px;
-    flex-direction: ${({ $orientation, $device }) => (($orientation === 'landscape' && $device === 'mobile') ? 'column' : 'row')};
     bottom: 0;
+    width: 100%;
+    padding: 20px;
     display: flex;
-    justify-content: ${({ $orientation, $device }) => ($orientation === 'landscape' && $device === 'mobile' ? 'flex-end' : 'center')};
-    align-items: flex-end;
+    justify-content: center;
+    gap: 20px;
+    
+    @media (max-width: 768px) {
+        flex-direction: column;
+        align-items: center;
+        padding: 20px 10px 30px;
+        gap: 15px;
+    }
+    
+    @media (min-width: 769px) {
+        max-width: 800px;
+        left: 50%;
+        transform: translateX(-50%);
+    }
 `;
 
 const EpicGamesStartAppButtonContainer = ({ setHideByModality }) => {
