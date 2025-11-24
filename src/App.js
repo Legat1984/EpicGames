@@ -10,8 +10,8 @@ import { ScreenProvider } from './contexts/ScreenContext.js';
 import { ThemeProvider } from 'styled-components';
 
 // Ипорт стилей
-import GlobalStyle from './style/UnifiedGlobalStyle.js';
-import { epicGamesDarkTheme } from './style/unifiedThemes.js';
+import GlobalStyle from './style/GlobalStyle.js';
+import { epicGamesDarkTheme } from './style/themes.js';
 
 // Импорт компонент
 import EpicGamesApp from './components/EpicGames/EpicGamesApp.js'
