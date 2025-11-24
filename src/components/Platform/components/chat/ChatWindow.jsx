@@ -2,13 +2,24 @@ import React, { useRef, useEffect } from 'react';
 import styled, { css } from 'styled-components';
 import { X, Send, Users, Gamepad2 } from 'lucide-react';
 
+const Overlay = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0,0,0,0.5);
+  z-index: ${props => props.isMobile ? 1999 : 999};
+  display: ${props => props.show ? 'block' : 'none'};
+`;
+
 const ChatWindowStyled = styled.div`
   position: fixed;
   ${props => props.isMobile ? 'bottom: 0; right: 0; left: 0; height: 100%;' : 'bottom: 1rem; right: 1rem; width: 420px; height: 600px;'}
   background-color: ${props => props.theme.chat.background};
   border-radius: 12px;
   box-shadow: 0 8px 32px rgba(0,0,0,0.3);
-  z-index: 1000;
+  z-index: ${props => props.isMobile ? 2000 : 1000};
   display: ${props => props.isOpen ? 'flex' : 'none'};
   flex-direction: column;
   border: 1px solid ${props => props.theme.border};
@@ -139,65 +150,85 @@ const ChatWindow = ({
     chatEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages, activeChat]);
 
+  // Prevent background scrolling when chat is open on mobile
+  useEffect(() => {
+    if (isMobile && isChatOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'auto';
+    }
+    
+    return () => {
+      document.body.style.overflow = 'auto';
+    };
+  }, [isMobile, isChatOpen]);
+
   return (
-    <ChatWindowStyled
-      isMobile={isMobile}
-      isOpen={isChatOpen}
-      theme={theme}
-    >
-      <ChatHeader>
-        <h3>Чат</h3>
-        <button onClick={toggleChat}>
-          <X size={20} />
-        </button>
-      </ChatHeader>
+    <>
+      <Overlay
+        show={isMobile && isChatOpen}
+        onClick={toggleChat}
+        isMobile={isMobile}
+      />
+      <ChatWindowStyled
+        isMobile={isMobile}
+        isOpen={isChatOpen}
+        theme={theme}
+      >
+        <ChatHeader>
+          <h3>Чат</h3>
+          <button onClick={toggleChat}>
+            <X size={20} />
+          </button>
+        </ChatHeader>
 
-      <ChatTabs>
-        <ChatTab
-          active={activeChat === 'general'}
-          onClick={() => setActiveChat('general')}
-          theme={theme}
-        >
-          <Users size={16} /> Общий
-        </ChatTab>
-        <ChatTab
-          active={activeChat === 'room1'}
-          onClick={() => setActiveChat('room1')}
-          theme={theme}
-        >
-          <Gamepad2 size={16} /> Комната 1
-        </ChatTab>
-      </ChatTabs>
+        <ChatTabs>
+          <ChatTab
+            active={activeChat === 'general'}
+            onClick={() => setActiveChat('general')}
+            theme={theme}
+          >
+            <Users size={16} /> Общий
+          </ChatTab>
+          <ChatTab
+            active={activeChat === 'room1'}
+            onClick={() => setActiveChat('room1')}
+            theme={theme}
+          >
+            <Gamepad2 size={16} /> Комната 1
+          </ChatTab>
+        </ChatTabs>
 
-      <ChatMessages>
-        {messages[activeChat]?.map(msg => (
-          <Message key={msg.id} isOwn={msg.isOwn}>
-            <MessageAvatar src={msg.avatar} alt={msg.user} />
-            <MessageContent isOwn={msg.isOwn}>
-              <div>{msg.text}</div>
-              <MessageInfo>
-                <span>{msg.user}</span>
-                <span>{msg.time}</span>
-              </MessageInfo>
-            </MessageContent>
-          </Message>
-        ))}
-        <div ref={chatEndRef} />
-      </ChatMessages>
+        <ChatMessages>
+          {messages[activeChat]?.map(msg => (
+            <Message key={msg.id} isOwn={msg.isOwn}>
+              <MessageAvatar src={msg.avatar} alt={msg.user} />
+              <MessageContent isOwn={msg.isOwn}>
+                <div>{msg.text}</div>
+                <MessageInfo>
+                  <span>{msg.user}</span>
+                  <span>{msg.time}</span>
+                </MessageInfo>
+              </MessageContent>
+            </Message>
+          ))}
+          <div ref={chatEndRef} />
+        </ChatMessages>
 
-      <ChatInput>
-        <ChatInputField
-          value={message}
-          onChange={(e) => setMessage(e.target.value)}
-          onKeyPress={(e) => e.key === 'Enter' && sendMessage()}
-          placeholder="Введите сообщение..."
-          theme={theme}
-        />
-        <ChatSendButton onClick={sendMessage} theme={theme}>
-          <Send size={18} />
-        </ChatSendButton>
-      </ChatInput>
-    </ChatWindowStyled>
+        <ChatInput>
+          <ChatInputField
+            value={message}
+            onChange={(e) => setMessage(e.target.value)}
+            onKeyPress={(e) => e.key === 'Enter' && sendMessage()}
+            placeholder="Введите сообщение..."
+            theme={theme}
+          />
+          <ChatSendButton onClick={sendMessage} theme={theme}>
+            <Send size={18} />
+          </ChatSendButton>
+        </ChatInput>
+      </ChatWindowStyled>
+    </>
   );
 };
 

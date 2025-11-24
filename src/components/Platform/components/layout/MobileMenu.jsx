@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { X, Home, Book, Settings, LogOut } from 'lucide-react';
 
@@ -9,7 +9,7 @@ const MobileMenuStyled = styled.div`
   right: 0;
   bottom: 0;
   background-color: ${props => props.theme.background};
-  z-index: 2000;
+  z-index: 2001;
   display: ${props => props.isOpen ? 'flex' : 'none'};
   flex-direction: column;
 `;
@@ -52,7 +52,7 @@ const Overlay = styled.div`
   right: 0;
   bottom: 0;
   background-color: rgba(0,0,0,0.5);
-  z-index: 1500;
+  z-index: 1999;
   display: ${props => props.show ? 'block' : 'none'};
 `;
 
@@ -62,6 +62,19 @@ const MobileMenu = ({
   theme, 
   menuItems 
 }) => {
+  // Prevent background scrolling when mobile menu is open
+  useEffect(() => {
+    if (showMobileMenu) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'auto';
+    }
+    
+    return () => {
+      document.body.style.overflow = 'auto';
+    };
+  }, [showMobileMenu]);
+
   return (
     <>
       <MobileMenuStyled isOpen={showMobileMenu} theme={theme}>
