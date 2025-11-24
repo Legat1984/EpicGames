@@ -1,6 +1,6 @@
 import { createGlobalStyle } from 'styled-components';
 
-const GlobalStyle = createGlobalStyle`
+const UnifiedGlobalStyle = createGlobalStyle`
   /* Полный сброс стилей */
   html, body, div, span, applet, object, iframe,
   h1, h2, h3, h4, h5, h6, p, blockquote, pre,
@@ -31,6 +31,9 @@ const GlobalStyle = createGlobalStyle`
 
   body {
     line-height: 1;
+    background-color: ${props => props.theme.background || '#101117'};
+    color: ${props => props.theme.text || '#FFFFFF'};
+    transition: background-color 0.3s ease, color 0.3s ease;
   }
 
   ol, ul {
@@ -52,6 +55,27 @@ const GlobalStyle = createGlobalStyle`
     border-spacing: 0;
   }
 
+  /* Добавляем универсальные стили */
+  * {
+    box-sizing: border-box;
+    font-family: ${props => props.theme.fontFamily || "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif"};
+  }
+  
+  button {
+    cursor: pointer;
+    border: none;
+    outline: none;
+    background: none;
+  }
+
+  input, select, textarea {
+    background: ${props => props.theme.surface || '#1a1b23'};
+    color: ${props => props.theme.text || '#FFFFFF'};
+    border: 1px solid ${props => props.theme.border || '#4A4C50'};
+    border-radius: 8px;
+    padding: 8px 12px;
+  }
+
   /* Подключение шрифтов */
   @font-face {
     font-family: 'fontHarryPotter';
@@ -68,4 +92,4 @@ const GlobalStyle = createGlobalStyle`
   }
 `;
 
-export default GlobalStyle;
+export default UnifiedGlobalStyle;

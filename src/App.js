@@ -10,14 +10,14 @@ import { ScreenProvider } from './contexts/ScreenContext.js';
 import { ThemeProvider } from 'styled-components';
 
 // Ипорт стилей
-import GlobalStyle from './style/GlobalStyle.js';
-import { darkThemeEpicGames } from './style/themes.js';
+import GlobalStyle from './style/UnifiedGlobalStyle.js';
+import { epicGamesDarkTheme } from './style/unifiedThemes.js';
 
 // Импорт компонент
 import EpicGamesApp from './components/EpicGames/EpicGamesApp.js'
 
 const App = () => {
-  const [theme] = useState(darkThemeEpicGames);
+  const [theme] = useState(epicGamesDarkTheme);
 
   return (
     <Router>
