@@ -2,7 +2,7 @@
 import { createContext, useContext } from 'react';
 
 // Определяем темы в отдельном файле
-import { darkTheme, lightTheme } from '../styles/themes';
+import { darkTheme, lightTheme } from '../../../style/themes';
 
 // Создаем контекст
 export const ThemeContext = createContext();

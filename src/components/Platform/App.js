@@ -5,7 +5,7 @@ import { Home, Book, Settings, LogOut } from 'lucide-react';
 import { ThemeProvider } from 'styled-components';
 import { ThemeContext, darkTheme, lightTheme } from './contexts/ThemeContext';
 import { GamesProvider } from './contexts/GamesContext';
-import GlobalStyle from './styles/GlobalStyle';
+import GlobalStyle from '../../style/GlobalStyle';
 
 import Header from './components/layout/Header';
 import Main from './components/layout/Main';
