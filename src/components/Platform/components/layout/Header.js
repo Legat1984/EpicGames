@@ -21,7 +21,7 @@ const Header = ({ theme, toggleTheme, setShowMobileMenu }) => {
     <StyledHeader theme={theme}>
       <HeaderContent>
         <TopHeader>
-          <Logo theme={theme} />
+          <Logo />
           <Navigation theme={theme} />
           <HeaderActions toggleTheme={toggleTheme} setShowMobileMenu={setShowMobileMenu} theme={theme} />
         </TopHeader>
