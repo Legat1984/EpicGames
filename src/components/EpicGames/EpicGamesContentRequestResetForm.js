@@ -13,8 +13,8 @@ const Form = styled.form`
     
     @media (max-width: 768px) {
         width: 100%;
-        height: 100vh;
         max-width: 100%;
+        height: 100%;
         padding: 20px;
         box-sizing: border-box;
     }

@@ -30,11 +30,14 @@ const Modal = styled.div`
     overflow-y: auto;
     
     @media (max-width: 768px) {
-        width: 95%;
-        height: auto;
-        max-height: 95vh;
+        width: 100%;
+        height: 100%;
+        max-height: 100vh;
         padding: 15px;
-        border-radius: 12px;
+        border-radius: 0;
+        top: 0;
+        left: 0;
+        transform: none;
     }
 `;
 

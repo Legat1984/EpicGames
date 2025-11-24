@@ -9,6 +9,15 @@ const Form = styled.form`
     flex-direction: column;
     align-items: center;
     width: 100%;
+    max-width: 350px;
+    
+    @media (max-width: 768px) {
+        width: 100%;
+        max-width: 100%;
+        height: 100%;
+        padding: 20px;
+        box-sizing: border-box;
+    }
 `;
 
 const FormInputContainer = styled.div`
@@ -71,6 +80,7 @@ const Button = styled.button`
     margin: 4px;
     margin-bottom: 10px;
     background-color: #0074E0;
+    font-family: 'fontKaushanScript', ${props => props.theme.fontFamily || "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif"};
     font-size: 16px;
     font-weight: 600;
     line-height: 150%;
@@ -88,6 +98,11 @@ const Button = styled.button`
         color: #000000;
         background-color: #cccccc;
         cursor: not-allowed;
+    }
+    
+    @media (max-width: 768px) {
+        height: 55px;
+        font-size: 18px;
     }
 `;
 
