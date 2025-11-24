@@ -1,23 +1,29 @@
 import styled from 'styled-components';
-import { Gamepad2 } from 'lucide-react';
+import EpicGamesLogotypeImage from '../../../assets/EpicGames/images/EpicGamesLogotype.png';
+import EpicGamesLogotypeText from '../../../assets/EpicGames/images/EpicGamesLogotypeText.svg';
 
 const StyledLogo = styled.div`
   display: flex;
   align-items: center;
   gap: 0.75rem;
   
-  h1 {
-    font-size: 1.5rem;
-    font-weight: bold;
-    color: ${props => props.theme.text};
+  .logo-image {
+    width: 40px;
+    height: auto;
+  }
+  
+  .logo-text {
+    width: 100px;
+    height: auto;
+    filter: ${props => props.theme.mode === 'dark' ? 'invert(1)' : 'invert(0)'};
   }
 `;
 
 const Logo = ({ theme }) => {
   return (
     <StyledLogo theme={theme}>
-      <Gamepad2 color={theme.primary} size={32} />
-      <h1>Настольные Игры Онлайн</h1>
+      <img src={EpicGamesLogotypeImage} alt="Epic Games Logo" className="logo-image" />
+      <img src={EpicGamesLogotypeText} alt="Epic Games" className="logo-text" />
     </StyledLogo>
   );
 };
