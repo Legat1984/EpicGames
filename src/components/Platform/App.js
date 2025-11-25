@@ -24,12 +24,48 @@ const Container = styled.div`
   flex-direction: column;
 `;
 
+// Temporary components for different sections
+const NewsSection = styled.div`
+  margin-bottom: 2rem;
+  padding: 1rem;
+  background-color: ${props => props.theme.surface};
+  border-radius: 8px;
+`;
+
+const RecommendedSection = styled.div`
+  margin-bottom: 2rem;
+  padding: 1rem;
+  background-color: ${props => props.theme.surface};
+  border-radius: 8px;
+`;
+
+const ShopSection = styled.div`
+  margin-bottom: 2rem;
+  padding: 1rem;
+  background-color: ${props => props.theme.surface};
+  border-radius: 8px;
+`;
+
+const DonationsSection = styled.div`
+  margin-bottom: 1rem;
+  padding: 1rem;
+  background-color: ${props => props.theme.surface};
+  border-radius: 8px;
+`;
+
+const SubscriptionsSection = styled.div`
+  padding: 1rem;
+  background-color: ${props => props.theme.surface};
+  border-radius: 8px;
+`;
+
 // App Component
 const App = () => {
 
   const [isMobile, setIsMobile] = useState(false);
   const [showMobileMenu, setShowMobileMenu] = useState(false);
   const [currentTheme, setCurrentTheme] = useState({ ...darkTheme, mode: 'dark' });
+  const [activeTab, setActiveTab] = useState('home'); // Default to 'home'
 
   useEffect(() => {
     const checkMobile = () => {
@@ -52,6 +88,55 @@ const App = () => {
 
 
 
+  // Function to render content based on active tab
+  const renderContent = () => {
+    switch(activeTab) {
+      case 'home':
+        return (
+          <>
+            <NewsSection theme={currentTheme}>
+              <h2>Новости</h2>
+              <p>Здесь будут отображаться последние новости платформы.</p>
+            </NewsSection>
+            <RecommendedSection theme={currentTheme}>
+              <h2>Рекомендуем</h2>
+              <p>Здесь будут рекомендуемые игры и контент.</p>
+            </RecommendedSection>
+          </>
+        );
+      case 'games':
+        return (
+          <>
+            <HeroSection theme={currentTheme} />
+            <GamesManager theme={currentTheme} />
+          </>
+        );
+      case 'shop':
+        return (
+          <>
+            <ShopSection theme={currentTheme}>
+              <h2>Магазин</h2>
+              <DonationsSection theme={currentTheme}>
+                <h3>Донат</h3>
+                <p>Пожертвования для поддержки платформы и разработки новых функций.</p>
+              </DonationsSection>
+              <SubscriptionsSection theme={currentTheme}>
+                <h3>Подписки</h3>
+                <p>Ежемесячные и годовые подписки с премиум-функциями.</p>
+              </SubscriptionsSection>
+            </ShopSection>
+          </>
+        );
+      default:
+        return (
+          <>
+            <HeroSection theme={currentTheme} />
+            <GamesManager theme={currentTheme} />
+          </>
+        );
+    }
+  };
+
   const menuItems = [
     { icon: Home, label: 'Главная', href: '#' },
     { icon: Book, label: 'Игры', href: '#' },
@@ -71,11 +156,12 @@ const App = () => {
                 theme={currentTheme}
                 toggleTheme={toggleTheme}
                 setShowMobileMenu={setShowMobileMenu}
+                activeTab={activeTab}
+                onTabChange={setActiveTab}
               />
 
               <Main>
-                <HeroSection theme={currentTheme} />
-                <GamesManager theme={currentTheme} />
+                {renderContent()}
               </Main>
 
               <ChatManager theme={currentTheme} />
@@ -85,6 +171,8 @@ const App = () => {
                 setShowMobileMenu={setShowMobileMenu}
                 theme={currentTheme}
                 menuItems={menuItems}
+                activeTab={activeTab}
+                onTabChange={setActiveTab}
               />
             </Container>
           </ErrorBoundary>

@@ -29,12 +29,39 @@ const StyledNavigation = styled.nav`
   }
 `;
 
-const Navigation = ({ theme }) => {
+const Navigation = ({ theme, activeTab, onTabChange }) => {
   return (
     <StyledNavigation theme={theme}>
-      <a href="#">Главная</a>
-      <a href="#">Игры</a>
-      <a href="#">Магазин</a>
+      <a 
+        href="#" 
+        className={activeTab === 'home' ? 'active' : ''} 
+        onClick={(e) => {
+          e.preventDefault();
+          onTabChange('home');
+        }}
+      >
+        Главная
+      </a>
+      <a 
+        href="#" 
+        className={activeTab === 'games' ? 'active' : ''} 
+        onClick={(e) => {
+          e.preventDefault();
+          onTabChange('games');
+        }}
+      >
+        Игры
+      </a>
+      <a 
+        href="#" 
+        className={activeTab === 'shop' ? 'active' : ''} 
+        onClick={(e) => {
+          e.preventDefault();
+          onTabChange('shop');
+        }}
+      >
+        Магазин
+      </a>
     </StyledNavigation>
   );
 };

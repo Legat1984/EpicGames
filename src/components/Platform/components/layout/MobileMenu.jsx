@@ -42,6 +42,11 @@ const MobileMenuNav = styled.nav`
     &:hover {
       background-color: ${props => props.theme.card};
     }
+    
+    &.active {
+      background-color: ${props => props.theme.primary};
+      color: ${props => props.theme.primaryText};
+    }
   }
 `;
 
@@ -60,7 +65,9 @@ const MobileMenu = ({
   showMobileMenu, 
   setShowMobileMenu, 
   theme, 
-  menuItems 
+  menuItems,
+  activeTab,
+  onTabChange
 }) => {
   // Prevent background scrolling when mobile menu is open
   useEffect(() => {
@@ -75,6 +82,19 @@ const MobileMenu = ({
     };
   }, [showMobileMenu]);
 
+  const handleTabChange = (label, index) => {
+    setShowMobileMenu(false);
+    
+    // Map labels to tab keys
+    if(label === 'Главная') {
+      onTabChange('home');
+    } else if(label === 'Игры') {
+      onTabChange('games');
+    } else if(label === 'Магазин') {
+      onTabChange('shop');
+    }
+  };
+
   return (
     <>
       <MobileMenuStyled isOpen={showMobileMenu} theme={theme}>
@@ -86,7 +106,15 @@ const MobileMenu = ({
         </MobileMenuHeader>
         <MobileMenuNav>
           {menuItems.map((item, index) => (
-            <a key={index} href={item.href}>
+            <a 
+              key={index} 
+              href={item.href}
+              onClick={(e) => {
+                e.preventDefault();
+                handleTabChange(item.label, index);
+              }}
+              className={activeTab === (item.label === 'Главная' ? 'home' : item.label === 'Игры' ? 'games' : item.label === 'Магазин' ? 'shop' : '') ? 'active' : ''}
+            >
               <item.icon size={20} />
               {item.label}
             </a>
