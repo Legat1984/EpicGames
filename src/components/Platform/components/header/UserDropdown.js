@@ -23,6 +23,7 @@ const UserButton = styled.button`
   &:hover {
     background-color: ${props => props.theme.card};
     border-color: ${props => props.theme.primary};
+    border: 1px solid ${props => props.theme.border};
   }
 
   &:focus {
@@ -106,7 +107,10 @@ const UserDropdown = ({ theme, onSettingsClick, onLogout }) => {
       
       {isOpen && (
         <DropdownMenu theme={theme}>
-          <DropdownItem onClick={onSettingsClick}>
+          <DropdownItem onClick={() => {
+            onSettingsClick();
+            setIsOpen(false);
+          }}>
             <Settings size={16} />
             Настройки
           </DropdownItem>
