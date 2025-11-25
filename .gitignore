@@ -1,1 +1,1 @@
-Nothing should be ignored based on the provided file changes, as only a source code file (`src/components/Platform/components/header/Navigation.js`) was modified and no build artifacts, dependencies, or temporary files are present in the changes.
+node_modules/
