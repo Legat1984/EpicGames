@@ -5,6 +5,9 @@ import { Settings, LogOut, User } from 'lucide-react';
 const DropdownContainer = styled.div`
   position: relative;
   display: inline-block;
+  ${props => props.isOpen && `
+    /* Добавляем стили, если меню открыто */
+  `}
 `;
 
 const UserButton = styled.button`
@@ -75,11 +78,16 @@ const DropdownItem = styled.button`
 
 const UserDropdown = ({ theme, onSettingsClick, onLogout }) => {
   const [isOpen, setIsOpen] = React.useState(false);
+  const userButtonRef = React.useRef(null);
 
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (!event.target.closest('.user-dropdown')) {
         setIsOpen(false);
+        // Убираем фокус с кнопки при закрытии меню
+        if (userButtonRef.current && document.activeElement === userButtonRef.current) {
+          userButtonRef.current.blur();
+        }
       }
     };
 
@@ -89,12 +97,21 @@ const UserDropdown = ({ theme, onSettingsClick, onLogout }) => {
 
   const handleUserButtonClick = (e) => {
     e.stopPropagation();
+    // Если меню было открыто и мы его закрываем, убираем фокус с кнопки
+    if (isOpen && userButtonRef.current) {
+      setTimeout(() => {
+        if (document.activeElement === userButtonRef.current) {
+          userButtonRef.current.blur();
+        }
+      }, 0);
+    }
     setIsOpen(!isOpen);
   };
 
   return (
-    <DropdownContainer className="user-dropdown">
+    <DropdownContainer className="user-dropdown" isOpen={isOpen}>
       <UserButton
+        ref={userButtonRef}
         theme={theme}
         onClick={handleUserButtonClick}
         aria-expanded={isOpen}
@@ -105,14 +122,29 @@ const UserDropdown = ({ theme, onSettingsClick, onLogout }) => {
 
       {isOpen && (
         <DropdownMenu theme={theme}>
-          <DropdownItem onClick={() => {
-            onSettingsClick();
-            setIsOpen(false);
-          }}>
+          <DropdownItem 
+            onClick={() => {
+              onSettingsClick();
+              setIsOpen(false);
+              // Убираем фокус с кнопки после закрытия меню
+              if (userButtonRef.current && document.activeElement === userButtonRef.current) {
+                userButtonRef.current.blur();
+              }
+            }}
+          >
             <Settings size={16} />
             Настройки
           </DropdownItem>
-          <DropdownItem onClick={onLogout}>
+          <DropdownItem 
+            onClick={() => {
+              onLogout();
+              setIsOpen(false);
+              // Убираем фокус с кнопки после закрытия меню
+              if (userButtonRef.current && document.activeElement === userButtonRef.current) {
+                userButtonRef.current.blur();
+              }
+            }}
+          >
             <LogOut size={16} />
             Выход
           </DropdownItem>
