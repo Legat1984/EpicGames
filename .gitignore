@@ -1,1 +1,1 @@
-Nothing should be ignored based on the provided file changes. The modified file 'src/components/Platform/App.js' is a source code file that should be tracked in version control. No build artifacts, dependencies, or temporary files are present in the changes.
+node_modules/

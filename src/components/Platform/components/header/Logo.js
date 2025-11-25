@@ -15,7 +15,7 @@ const StyledLogo = styled.div`
   .logo-text {
     width: 200px;
     height: auto;
-    filter: ${props => props.theme.mode === 'dark' ? 'invert(1)' : 'invert(0)'};
+    filter: ${props => props.theme.mode === 'dark' ? 'invert(0)' : 'invert(1)'};
   }
 `;
 
