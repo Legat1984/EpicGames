@@ -5,13 +5,22 @@ const StyledNavigation = styled.nav`
   gap: 2rem;
   
   a {
-    color: ${props => props.theme.textSecondary};
+    color: #86898E;
     text-decoration: none;
     font-weight: 500;
+    font-size: 18px; /* Увеличенный размер шрифта */
     transition: color 0.2s ease;
     
     &:hover {
-      color: ${props => props.theme.primary};
+      color: #FFFFFF;
+      text-decoration: underline;
+      text-decoration-color: #148EFF;
+    }
+    
+    &.active {
+      color: #FFFFFF;
+      text-decoration: underline;
+      text-decoration-color: #148EFF;
     }
   }
   
