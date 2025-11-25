@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
-import { X, Home, Book, Settings, LogOut } from 'lucide-react';
+import { X } from 'lucide-react';
 
 const MobileMenuStyled = styled.div`
   position: fixed;
