@@ -8,18 +8,30 @@ const DropdownContainer = styled.div`
 `;
 
 const UserButton = styled.button`
-  background: none;
-  border: none;
+  background: ${props => props.theme.surface};
+  border: 1px solid ${props => props.theme.border};
   cursor: pointer;
-  padding: 0.5rem;
-  border-radius: 4px;
+  padding: 0.5rem 1rem;
+  border-radius: 24px;
   display: flex;
   align-items: center;
   justify-content: center;
+  gap: 0.5rem;
+  color: ${props => props.theme.text};
+  transition: all 0.2s ease;
 
   &:hover {
     background-color: ${props => props.theme.card};
+    border-color: ${props => props.theme.primary};
   }
+
+  &:focus {
+    outline: 2px solid ${props => props.theme.primary};
+  }
+`;
+
+const UserIcon = styled(User)`
+  color: ${props => props.theme.textSecondary};
 `;
 
 const DropdownMenu = styled.div`
@@ -29,10 +41,11 @@ const DropdownMenu = styled.div`
   background-color: ${props => props.theme.surface};
   border: 1px solid ${props => props.theme.border};
   border-radius: 8px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   width: 200px;
   z-index: 1000;
   overflow: hidden;
+  margin-top: 0.5rem;
 `;
 
 const DropdownItem = styled.button`
@@ -46,6 +59,7 @@ const DropdownItem = styled.button`
   align-items: center;
   gap: 0.5rem;
   color: ${props => props.theme.text};
+  transition: background-color 0.2s ease;
 
   &:hover {
     background-color: ${props => props.theme.card};
@@ -84,8 +98,10 @@ const UserDropdown = ({ theme, onSettingsClick, onLogout }) => {
       <UserButton 
         theme={theme} 
         onClick={handleUserButtonClick}
+        aria-expanded={isOpen}
+        aria-haspopup="true"
       >
-        <User  size={20} theme={theme}  />
+        <UserIcon size={20} theme={theme} />
       </UserButton>
       
       {isOpen && (

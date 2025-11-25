@@ -16,13 +16,11 @@ const HeaderActions = ({ toggleTheme, setShowMobileMenu, theme, onSettingsClick,
       <IconButton onClick={toggleTheme} theme={theme}>
         <Globe size={20} />
       </IconButton>
-      <IconButton onClick={toggleTheme} theme={theme}>
-        <UserDropdown
-          theme={theme}
-          onSettingsClick={onSettingsClick}
-          onLogout={onLogout}
-        />
-      </IconButton>
+      <UserDropdown
+        theme={theme}
+        onSettingsClick={onSettingsClick}
+        onLogout={onLogout}
+      />
       <MobileMenuButton onClick={() => setShowMobileMenu(true)} theme={theme}>
         <Menu size={20} />
       </MobileMenuButton>

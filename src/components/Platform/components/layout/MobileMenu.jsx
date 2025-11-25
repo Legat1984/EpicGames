@@ -28,25 +28,29 @@ const MobileMenuNav = styled.nav`
   display: flex;
   flex-direction: column;
   gap: 1rem;
+`;
+
+const MenuItemButton = styled.button`
+  color: ${props => props.theme.text};
+  text-decoration: none;
+  padding: 1rem;
+  border-radius: 8px;
+  background-color: ${props => props.theme.surface};
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  border: none;
+  width: 100%;
+  cursor: pointer;
+  text-align: left;
   
-  a {
-    color: ${props => props.theme.text};
-    text-decoration: none;
-    padding: 1rem;
-    border-radius: 8px;
-    background-color: ${props => props.theme.surface};
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    
-    &:hover {
-      background-color: ${props => props.theme.card};
-    }
-    
-    &.active {
-      background-color: ${props => props.theme.primary};
-      color: ${props => props.theme.primaryText};
-    }
+  &:hover {
+    background-color: ${props => props.theme.card};
+  }
+  
+  &.active {
+    background-color: ${props => props.theme.primary};
+    color: ${props => props.theme.primaryText};
   }
 `;
 
@@ -113,9 +117,8 @@ const MobileMenu = ({
         </MobileMenuHeader>
         <MobileMenuNav>
           {menuItems.map((item, index) => (
-            <a 
+            <MenuItemButton 
               key={index} 
-              href={item.href}
               onClick={(e) => {
                 e.preventDefault();
                 handleTabChange(item.label, index);
@@ -124,7 +127,7 @@ const MobileMenu = ({
             >
               <item.icon size={20} />
               {item.label}
-            </a>
+            </MenuItemButton>
           ))}
         </MobileMenuNav>
       </MobileMenuStyled>
