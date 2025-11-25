@@ -29,7 +29,7 @@ const App = () => {
 
   const [isMobile, setIsMobile] = useState(false);
   const [showMobileMenu, setShowMobileMenu] = useState(false);
-  const [currentTheme, setCurrentTheme] = useState(darkTheme);
+  const [currentTheme, setCurrentTheme] = useState({ ...darkTheme, mode: 'dark' });
 
   useEffect(() => {
     const checkMobile = () => {
@@ -43,7 +43,11 @@ const App = () => {
 
 
   const toggleTheme = () => {
-    setCurrentTheme(currentTheme === darkTheme ? lightTheme : darkTheme);
+    if (currentTheme.mode === 'dark') {
+      setCurrentTheme({ ...lightTheme, mode: 'light' });
+    } else {
+      setCurrentTheme({ ...darkTheme, mode: 'dark' });
+    }
   };
 
 
