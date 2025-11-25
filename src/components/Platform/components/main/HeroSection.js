@@ -11,11 +11,11 @@ const StyledHeroSection = styled.section`
 const HeroSection = ({ theme }) => {
   return (
     <StyledHeroSection>
-      <SectionTitle theme={theme}>Переведенные Настольные Игры</SectionTitle>
+      <SectionTitle theme={theme}>Настольные игры онлайн</SectionTitle>
       <SectionSubtitle theme={theme}>
         Собирайтесь с друзьями, играйте в любимые настольные игры в удобном онлайн-формате
       </SectionSubtitle>
-      <ButtonGroup theme={theme} />
+      {/*<ButtonGroup theme={theme} />*/}
     </StyledHeroSection>
   );
 };

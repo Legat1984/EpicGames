@@ -16,12 +16,12 @@ export const GamesProvider = ({ children }) => {
     {
       id: 1,
       title: 'Гарри Поттер: Битва за Хогвартс',
-      originalTitle: 'Harry Potter: Hogwarts Battle',
+      originalTitle: 'Harry Potter: the battle for Hogwarts',
       category: 'Колодостроительная',
       players: '2-4',
       time: '30-60 мин',
       image: HogwartsImage,
-      description: 'кооперативная настольная игра по мотивам произведений Джоан Роулинг.',
+      description: 'Кооперативная настольная игра по мотивам произведений Джоан Роулинг.',
       favorite: true
     },
     {
