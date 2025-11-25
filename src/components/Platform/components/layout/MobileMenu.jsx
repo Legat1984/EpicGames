@@ -120,7 +120,7 @@ const MobileMenu = ({
                 e.preventDefault();
                 handleTabChange(item.label, index);
               }}
-              className={activeTab === (item.label === 'Главная' ? 'home' : item.label === 'Игры' ? 'games' : item.label === 'Магазин' ? 'shop' : '') ? 'active' : ''}
+              className={activeTab === (item.label === 'Главная' ? 'home' : item.label === 'Игры' ? 'games' : item.label === 'Магазин' ? 'shop' : item.label === 'Настройки' ? 'settings' : '') ? 'active' : ''}
             >
               <item.icon size={20} />
               {item.label}
