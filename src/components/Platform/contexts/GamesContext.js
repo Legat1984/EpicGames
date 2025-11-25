@@ -14,15 +14,13 @@ export const GamesProvider = ({ children }) => {
   const [games, setGames] = useState([
     {
       id: 1,
-      title: 'Колонизаторы',
-      originalTitle: 'Settlers of Catan',
-      category: 'Стратегия',
-      players: '3-4',
-      time: '60-90 мин',
-      rating: 4.8,
-      downloads: 1250,
+      title: 'Гарри Поттер: Битва за Хогвартс',
+      originalTitle: 'Harry Potter: Hogwarts Battle',
+      category: 'Колодостроительная',
+      players: '2-4',
+      time: '30-60 мин',
       image: 'https://placehold.co/300x200',
-      description: 'Классическая стратегическая настольная игра о поселенцах на острове Катан',
+      description: 'кооперативная настольная игра по мотивам произведений Джоан Роулинг.',
       favorite: true
     },
     {
