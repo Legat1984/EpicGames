@@ -29,12 +29,18 @@ const StyledNavigation = styled.nav`
   }
 `;
 
-const Navigation = ({ theme }) => {
+const Navigation = ({ theme, onNavigate }) => {
+  const handleClick = (section) => {
+    if (onNavigate) {
+      onNavigate(section);
+    }
+  };
+
   return (
     <StyledNavigation theme={theme}>
-      <a href="#">Главная</a>
-      <a href="#">Игры</a>
-      <a href="#">Магазин</a>
+      <a href="#" onClick={(e) => { e.preventDefault(); handleClick('home'); }}>Главная</a>
+      <a href="#" onClick={(e) => { e.preventDefault(); handleClick('games'); }}>Игры</a>
+      <a href="#" onClick={(e) => { e.preventDefault(); handleClick('shop'); }}>Магазин</a>
     </StyledNavigation>
   );
 };

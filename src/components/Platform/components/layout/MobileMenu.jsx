@@ -60,7 +60,8 @@ const MobileMenu = ({
   showMobileMenu, 
   setShowMobileMenu, 
   theme, 
-  menuItems 
+  menuItems,
+  onNavigate
 }) => {
   // Prevent background scrolling when mobile menu is open
   useEffect(() => {
@@ -75,6 +76,20 @@ const MobileMenu = ({
     };
   }, [showMobileMenu]);
 
+  const handleItemClick = (label, href, e) => {
+    e.preventDefault();
+    setShowMobileMenu(false);
+    
+    // Определяем секцию по названию
+    let section = null;
+    if(label === 'Главная') section = 'home';
+    else if(label === 'Игры' || label === 'Магазин') section = label.toLowerCase();
+    
+    if(section && onNavigate) {
+      onNavigate(section);
+    }
+  };
+
   return (
     <>
       <MobileMenuStyled isOpen={showMobileMenu} theme={theme}>
@@ -86,7 +101,7 @@ const MobileMenu = ({
         </MobileMenuHeader>
         <MobileMenuNav>
           {menuItems.map((item, index) => (
-            <a key={index} href={item.href}>
+            <a key={index} href={item.href} onClick={(e) => handleItemClick(item.label, item.href, e)}>
               <item.icon size={20} />
               {item.label}
             </a>

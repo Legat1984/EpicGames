@@ -14,6 +14,8 @@ import HeroSection from './components/main/HeroSection';
 import GamesManager from './components/games/GamesManager';
 import ChatManager from './components/chat/ChatManager';
 import MobileMenu from './components/layout/MobileMenu';
+import HomePage from './components/main/HomePage';
+import ShopPage from './components/main/ShopPage';
 
 // Styled Components
 const Container = styled.div`
@@ -30,6 +32,7 @@ const App = () => {
   const [isMobile, setIsMobile] = useState(false);
   const [showMobileMenu, setShowMobileMenu] = useState(false);
   const [currentTheme, setCurrentTheme] = useState({ ...darkTheme, mode: 'dark' });
+  const [activeSection, setActiveSection] = useState('home'); // По умолчанию отображаем главную
 
   useEffect(() => {
     const checkMobile = () => {
@@ -39,6 +42,10 @@ const App = () => {
     window.addEventListener('resize', checkMobile);
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
+
+  const handleNavigate = (section) => {
+    setActiveSection(section);
+  };
 
 
 
@@ -60,6 +67,30 @@ const App = () => {
     { icon: LogOut, label: 'Выйти', href: '#' }
   ];
 
+  // Функция для отображения контента в зависимости от активного раздела
+  const renderMainContent = () => {
+    switch(activeSection) {
+      case 'home':
+        return <HomePage theme={currentTheme} />;
+      case 'games':
+        return (
+          <>
+            <HeroSection theme={currentTheme} />
+            <GamesManager theme={currentTheme} />
+          </>
+        );
+      case 'shop':
+        return <ShopPage theme={currentTheme} />;
+      default:
+        return (
+          <>
+            <HeroSection theme={currentTheme} />
+            <GamesManager theme={currentTheme} />
+          </>
+        );
+    }
+  };
+
   return (
     <ThemeContext.Provider value={{ theme: currentTheme, setTheme: setCurrentTheme }}>
       <ThemeProvider theme={currentTheme}>
@@ -71,11 +102,11 @@ const App = () => {
                 theme={currentTheme}
                 toggleTheme={toggleTheme}
                 setShowMobileMenu={setShowMobileMenu}
+                onNavigate={handleNavigate}
               />
 
               <Main>
-                <HeroSection theme={currentTheme} />
-                <GamesManager theme={currentTheme} />
+                {renderMainContent()}
               </Main>
 
               <ChatManager theme={currentTheme} />
@@ -85,6 +116,7 @@ const App = () => {
                 setShowMobileMenu={setShowMobileMenu}
                 theme={currentTheme}
                 menuItems={menuItems}
+                onNavigate={handleNavigate}
               />
             </Container>
           </ErrorBoundary>
