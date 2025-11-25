@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import styled from 'styled-components';
 import { Home, Book, Settings, LogOut } from 'lucide-react';
+import { UserContext } from '../../contexts/UserContext';
 
 import { ThemeProvider } from 'styled-components';
 import { ThemeContext, darkTheme, lightTheme } from './contexts/ThemeContext';
@@ -59,8 +60,16 @@ const SubscriptionsSection = styled.div`
   border-radius: 8px;
 `;
 
+const SettingsSection = styled.div`
+  margin-bottom: 2rem;
+  padding: 1rem;
+  background-color: ${props => props.theme.surface};
+  border-radius: 8px;
+`;
+
 // App Component
 const App = () => {
+  const { user, logout } = useContext(UserContext);
 
   const [isMobile, setIsMobile] = useState(false);
   const [showMobileMenu, setShowMobileMenu] = useState(false);
@@ -127,6 +136,15 @@ const App = () => {
             </ShopSection>
           </>
         );
+      case 'settings':
+        return (
+          <SettingsSection theme={currentTheme}>
+            <h2>Настройки пользователя</h2>
+            <p>Имя пользователя: {user?.name || user?.username || 'Не указано'}</p>
+            <p>Email: {user?.email || 'Не указано'}</p>
+            <p>Роль: {user?.role || 'Пользователь'}</p>
+          </SettingsSection>
+        );
       default:
         return (
           <>
@@ -158,6 +176,8 @@ const App = () => {
                 setShowMobileMenu={setShowMobileMenu}
                 activeTab={activeTab}
                 onTabChange={setActiveTab}
+                onSettingsClick={() => setActiveTab('settings')}
+                onLogout={logout}
               />
 
               <Main>
@@ -173,6 +193,7 @@ const App = () => {
                 menuItems={menuItems}
                 activeTab={activeTab}
                 onTabChange={setActiveTab}
+                onLogout={logout}
               />
             </Container>
           </ErrorBoundary>

@@ -67,7 +67,8 @@ const MobileMenu = ({
   theme, 
   menuItems,
   activeTab,
-  onTabChange
+  onTabChange,
+  onLogout
 }) => {
   // Prevent background scrolling when mobile menu is open
   useEffect(() => {
@@ -92,6 +93,12 @@ const MobileMenu = ({
       onTabChange('games');
     } else if(label === 'Магазин') {
       onTabChange('shop');
+    } else if(label === 'Настройки') {
+      onTabChange('settings');
+    } else if(label === 'Выйти') {
+      if(onLogout) {
+        onLogout();
+      }
     }
   };
 
