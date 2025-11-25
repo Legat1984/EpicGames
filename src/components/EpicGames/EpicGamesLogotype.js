@@ -12,12 +12,11 @@ const LogoContainer = styled.div`
   align-items: center;
   justify-content: center;
   width: 100%;
-  max-width: 600px;
   padding: 10px;
   
   @media (max-width: 768px) {
     padding: 5px;
-    position: relative; /* Always relative in forms to stay in flow */
+    position: relative;
   }
 `;
 
