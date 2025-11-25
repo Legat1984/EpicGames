@@ -15,9 +15,12 @@ const Form = styled.form`
     @media (max-width: 768px) {
         width: 100%;
         max-width: 100%;
-        height: 100%;
+        height: auto;
         padding: 20px;
         box-sizing: border-box;
+        flex: 1;
+        min-height: calc(100vh - 120px); /* Account for header and any other elements */
+        justify-content: flex-start;
     }
 `;
 

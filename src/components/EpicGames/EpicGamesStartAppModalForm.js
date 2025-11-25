@@ -30,14 +30,15 @@ const Modal = styled.div`
     overflow-y: auto;
     
     @media (max-width: 768px) {
-        width: 100%;
-        height: 100%;
+        width: 100vw;
+        height: 100vh;
         max-height: 100vh;
         padding: 15px;
         border-radius: 0;
         top: 0;
         left: 0;
         transform: none;
+        min-height: 100vh;
     }
 `;
 
@@ -57,6 +58,11 @@ const Header = styled.header`
     align-items: center;
     width: 100%;
     padding: 10px;
+    
+    @media (max-width: 768px) {
+        justify-content: center;  /* Ensure logo stays centered on mobile */
+        padding: 5px 0;           /* Reduce padding on mobile */
+    }
 `;
 
 const CloseButton = styled.button`
@@ -86,9 +92,17 @@ const CloseButton = styled.button`
 const Main = styled.main`
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;  /* Changed from center to flex-start for better mobile layout */
     width: 100%;
     padding: 10px;
+    flex: 1;  /* Allow it to take available space */
+    
+    @media (max-width: 768px) {
+        align-items: stretch;  /* Stretch items to full width on mobile */
+        padding: 10px 0;       /* Reduce padding on mobile */
+        flex: 1;
+        min-height: 0;         /* Allow it to shrink */
+    }
 `;
 
 const ModalFormContainer = ({ closeModal, formState: initialFormState }) => {

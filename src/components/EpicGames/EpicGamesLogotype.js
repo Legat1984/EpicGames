@@ -17,6 +17,7 @@ const LogoContainer = styled.div`
   
   @media (max-width: 768px) {
     padding: 5px;
+    position: relative; /* Always relative in forms to stay in flow */
   }
 `;
 
