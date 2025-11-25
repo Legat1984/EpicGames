@@ -8,22 +8,20 @@ const DropdownContainer = styled.div`
 `;
 
 const UserButton = styled.button`
-  background: ${props => props.theme.surface};
-  border: 1px solid ${props => props.theme.border};
+  color: ${props => props.theme.textSecondary};
+  padding: 0.5rem;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+  background: transparent;
+  border: none;
   cursor: pointer;
-  padding: 0.5rem 1rem;
-  border-radius: 24px;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 0.5rem;
-  color: ${props => props.theme.text};
-  transition: all 0.2s ease;
 
   &:hover {
+    color: ${props => props.theme.text};
     background-color: ${props => props.theme.card};
-    border-color: ${props => props.theme.primary};
-    border: 1px solid ${props => props.theme.border};
   }
 
   &:focus {
@@ -96,15 +94,15 @@ const UserDropdown = ({ theme, onSettingsClick, onLogout }) => {
 
   return (
     <DropdownContainer className="user-dropdown">
-      <UserButton 
-        theme={theme} 
+      <UserButton
+        theme={theme}
         onClick={handleUserButtonClick}
         aria-expanded={isOpen}
         aria-haspopup="true"
       >
         <UserIcon size={20} theme={theme} />
       </UserButton>
-      
+
       {isOpen && (
         <DropdownMenu theme={theme}>
           <DropdownItem onClick={() => {
