@@ -18,7 +18,6 @@ const Form = styled.form`
         padding: 20px;
         box-sizing: border-box;
         flex: 1;
-        min-height: calc(100vh - 120px); /* Account for header and any other elements */
         justify-content: flex-start;
     }
 `;

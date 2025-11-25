@@ -18,7 +18,6 @@ const Form = styled.form`
         padding: 20px;
         box-sizing: border-box;
         flex: 1;
-        min-height: calc(100vh - 120px); /* Account for header and any other elements */
         justify-content: flex-start;
     }
 `;
@@ -105,6 +104,7 @@ const Button = styled.button`
     
     @media (max-width: 768px) {
         height: 55px;
+        min-height: 55px;
         font-size: 18px;
     }
 `;
