@@ -8,6 +8,9 @@ const DropdownContainer = styled.div`
   ${props => props.isOpen && `
     /* Добавляем стили, если меню открыто */
   `}
+  @media (max-width: 768px) {
+    display: none;
+  }
 `;
 
 const UserButton = styled.button`
