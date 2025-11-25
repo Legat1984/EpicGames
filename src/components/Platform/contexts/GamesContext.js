@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
+import HogwartsImage from '../../../assets/Games/HarryPotterTheBattleForHogwarts/Elements/Hogwarts.png';
 
 const GamesContext = createContext();
 
@@ -19,7 +20,7 @@ export const GamesProvider = ({ children }) => {
       category: 'Колодостроительная',
       players: '2-4',
       time: '30-60 мин',
-      image: 'https://placehold.co/300x200',
+      image: HogwartsImage,
       description: 'кооперативная настольная игра по мотивам произведений Джоан Роулинг.',
       favorite: true
     },
