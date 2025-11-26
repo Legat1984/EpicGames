@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import GameImage from './GameImage';
 import GameContent from './GameContent';
 
-const StyledGameCard = styled.div`
+const StyledGameCard = styled(({ theme, ...props }) => <div {...props} />)`
   background-color: ${props => props.theme.card};
   border-radius: 12px;
   overflow: hidden;

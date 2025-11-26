@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import GameCard from './GameCard';
 
-const StyledGamesGrid = styled.div`
+const StyledGamesGrid = styled(({ theme, ...props }) => <div {...props} />)`
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   gap: 1.5rem;
@@ -10,7 +10,7 @@ const StyledGamesGrid = styled.div`
 
 const GamesGrid = ({ games, theme }) => {
   return (
-    <StyledGamesGrid>
+    <StyledGamesGrid theme={theme}>
       {games.map(game => (
         <GameCard key={game.id} game={game} theme={theme} />
       ))}

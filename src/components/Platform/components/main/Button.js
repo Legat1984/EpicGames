@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const StyledButton = styled.button`
+const StyledButton = styled(({ primary, theme, ...props }) => <button {...props} />)`
   background-color: ${props => props.primary ? props.theme.primary : props.theme.surface};
   color: ${props => props.primary ? '#fff' : props.theme.text};
   padding: 0.75rem 1.5rem;

@@ -2,7 +2,7 @@ import React, { useRef, useEffect } from 'react';
 import styled, { css } from 'styled-components';
 import { X, Send, Users, Gamepad2 } from 'lucide-react';
 
-const Overlay = styled.div`
+const Overlay = styled(({ show, isMobile, ...props }) => <div {...props} />)`
   position: fixed;
   top: 0;
   left: 0;
@@ -13,7 +13,7 @@ const Overlay = styled.div`
   display: ${props => props.show ? 'block' : 'none'};
 `;
 
-const ChatWindowStyled = styled.div`
+const ChatWindowStyled = styled(({ isMobile, isOpen, ...props }) => <div {...props} />)`
   position: fixed;
   ${props => props.isMobile ? 'bottom: 0; right: 0; left: 0; height: 100%;' : 'bottom: 1rem; right: 1rem; width: 420px; height: 600px;'}
   background-color: ${props => props.theme.chat.background};
@@ -40,7 +40,7 @@ const ChatTabs = styled.div`
   border-bottom: 1px solid ${props => props.theme.border};
 `;
 
-const ChatTab = styled.button`
+const ChatTab = styled(({ active, ...props }) => <button {...props} />)`
   flex: 1;
   padding: 0.75rem;
   text-align: center;
@@ -63,7 +63,7 @@ const ChatMessages = styled.div`
   gap: 1rem;
 `;
 
-const Message = styled.div`
+const Message = styled(({ isOwn, ...props }) => <div {...props} />)`
   display: flex;
   gap: 0.75rem;
   align-items: flex-start;
@@ -80,7 +80,7 @@ const MessageAvatar = styled.img`
   object-fit: cover;
 `;
 
-const MessageContent = styled.div`
+const MessageContent = styled(({ isOwn, ...props }) => <div {...props} />)`
   background-color: ${props => props.isOwn ? props.theme.primary : props.theme.chat.message};
   color: ${props => props.isOwn ? 'white' : props.theme.chat.text};
   padding: 0.75rem;

@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import EpicGamesLogotypeImage from '../../../../assets/EpicGames/images/EpicGamesLogotype.png';
 import EpicGamesLogotypeText from '../../../../assets/EpicGames/images/EpicGamesLogotypeText.svg';
 
-const StyledLogo = styled.div`
+const StyledLogo = styled(({ theme, ...props }) => <div {...props} />)`
   display: flex;
   align-items: center;
   gap: 0.75rem;

@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { X } from 'lucide-react';
 
-const MobileMenuStyled = styled.div`
+const MobileMenuStyled = styled(({ isOpen, theme, ...props }) => <div {...props} />)`
   position: fixed;
   top: 0;
   left: 0;
@@ -30,7 +30,7 @@ const MobileMenuNav = styled.nav`
   gap: 1rem;
 `;
 
-const MenuItemButton = styled.button`
+const MenuItemButton = styled(({ theme, ...props }) => <button {...props} />)`
   color: ${props => props.theme.text};
   text-decoration: none;
   padding: 1rem;
@@ -54,7 +54,7 @@ const MenuItemButton = styled.button`
   }
 `;
 
-const Overlay = styled.div`
+const Overlay = styled(({ show, ...props }) => <div {...props} />)`
   position: fixed;
   top: 0;
   left: 0;
@@ -124,6 +124,7 @@ const MobileMenu = ({
                 handleTabChange(item.label, index);
               }}
               className={activeTab === (item.label === 'Главная' ? 'home' : item.label === 'Игры' ? 'games' : item.label === 'Магазин' ? 'shop' : item.label === 'Настройки' ? 'settings' : '') ? 'active' : ''}
+              theme={theme}
             >
               <item.icon size={20} />
               {item.label}

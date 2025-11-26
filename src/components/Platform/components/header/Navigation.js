@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const StyledNavigation = styled.nav`
+const StyledNavigation = styled(({ theme, ...props }) => <nav {...props} />)`
   display: flex;
   gap: 2rem;
   
@@ -9,7 +9,7 @@ const StyledNavigation = styled.nav`
   }
 `;
 
-const NavButton = styled.button`
+const NavButton = styled(({ theme, ...props }) => <button {...props} />)`
   color: ${props => props.theme.textSecondary};
   text-decoration: none;
   font-weight: 500;
@@ -43,6 +43,7 @@ const Navigation = ({ theme, activeTab, onTabChange }) => {
           e.preventDefault();
           onTabChange('home');
         }}
+        theme={theme}
       >
         Главная
       </NavButton>
@@ -52,6 +53,7 @@ const Navigation = ({ theme, activeTab, onTabChange }) => {
           e.preventDefault();
           onTabChange('games');
         }}
+        theme={theme}
       >
         Игры
       </NavButton>
@@ -61,6 +63,7 @@ const Navigation = ({ theme, activeTab, onTabChange }) => {
           e.preventDefault();
           onTabChange('shop');
         }}
+        theme={theme}
       >
         Магазин
       </NavButton>

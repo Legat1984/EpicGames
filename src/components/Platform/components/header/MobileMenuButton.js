@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const StyledMobileMenuButton = styled.button`
+const StyledMobileMenuButton = styled(({ theme, ...props }) => <button {...props} />)`
   display: none;
   color: ${props => props.theme.textSecondary};
   padding: 0.5rem;

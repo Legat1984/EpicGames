@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const StyledActionButton = styled.button`
+const StyledActionButton = styled(({ theme, ...props }) => <button {...props} />)`
   padding: 0.5rem;
   border-radius: 6px;
   color: ${props => props.theme.textSecondary};

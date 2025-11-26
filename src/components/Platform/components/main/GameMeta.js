@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const StyledGameMeta = styled.div`
+const StyledGameMeta = styled(({ theme, ...props }) => <div {...props} />)`
   display: flex;
   justify-content: space-between;
   align-items: center;

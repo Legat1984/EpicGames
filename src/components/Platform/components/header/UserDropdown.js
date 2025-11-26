@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { Settings, LogOut, User } from 'lucide-react';
 
-const DropdownContainer = styled.div`
+const DropdownContainer = styled(({ isOpen, ...props }) => <div {...props} />)`
   position: relative;
   display: inline-block;
   ${props => props.isOpen && `
@@ -13,6 +13,7 @@ const DropdownContainer = styled.div`
   }
 `;
 
+// Правильный способ: styled-components с forwardRef
 const UserButton = styled.button`
   color: ${props => props.theme.textSecondary};
   padding: 0.5rem;
@@ -39,7 +40,7 @@ const UserIcon = styled(User)`
   color: ${props => props.theme.textSecondary};
 `;
 
-const DropdownMenu = styled.div`
+const DropdownMenu = styled(({ theme, ...props }) => <div {...props} />)`
   position: absolute;
   top: 100%;
   right: 0;
@@ -53,7 +54,7 @@ const DropdownMenu = styled.div`
   margin-top: 0.5rem;
 `;
 
-const DropdownItem = styled.button`
+const DropdownItem = styled(({ theme, ...props }) => <button {...props} />)`
   width: 100%;
   padding: 0.75rem 1rem;
   border: none;
@@ -120,7 +121,7 @@ const UserDropdown = ({ theme, onSettingsClick, onLogout }) => {
         aria-expanded={isOpen}
         aria-haspopup="true"
       >
-        <UserIcon size={20} theme={theme} />
+        <UserIcon size={20} />
       </UserButton>
 
       {isOpen && (
@@ -134,6 +135,7 @@ const UserDropdown = ({ theme, onSettingsClick, onLogout }) => {
                 userButtonRef.current.blur();
               }
             }}
+            theme={theme}
           >
             <Settings size={16} />
             Настройки
@@ -147,6 +149,7 @@ const UserDropdown = ({ theme, onSettingsClick, onLogout }) => {
                 userButtonRef.current.blur();
               }
             }}
+            theme={theme}
           >
             <LogOut size={16} />
             Выход

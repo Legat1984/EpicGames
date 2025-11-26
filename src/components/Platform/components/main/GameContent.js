@@ -5,13 +5,13 @@ import GameDescription from './GameDescription';
 import GameMeta from './GameMeta';
 import GameActions from './GameActions';
 
-const StyledGameContent = styled.div`
+const StyledGameContent = styled(({ theme, ...props }) => <div {...props} />)`
   padding: 1.25rem;
 `;
 
 const GameContent = ({ game, theme }) => {
   return (
-    <StyledGameContent>
+    <StyledGameContent theme={theme}>
       <GameTitle theme={theme}>{game.title}</GameTitle>
       <GameOriginalTitle theme={theme}>{game.originalTitle}</GameOriginalTitle>
       <GameDescription theme={theme}>{game.description}</GameDescription>

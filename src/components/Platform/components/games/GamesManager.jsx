@@ -3,7 +3,7 @@ import { useGames } from '../../contexts/GamesContext';
 import GamesGrid from '../main/GamesGrid';
 import styled from 'styled-components';
 
-const LoadingMessage = styled.div`
+const LoadingMessage = styled(({ theme, ...props }) => <div {...props} />)`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -12,7 +12,7 @@ const LoadingMessage = styled.div`
   font-size: 1.2rem;
 `;
 
-const ErrorMessage = styled.div`
+const ErrorMessage = styled(({ theme, ...props }) => <div {...props} />)`
   display: flex;
   justify-content: center;
   align-items: center;

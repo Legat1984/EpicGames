@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { MessageCircle } from 'lucide-react';
 
-const ChatIconStyled = styled.button`
+const ChatIconStyled = styled(({ isMobile, theme, ...props }) => <button {...props} />)`
   position: fixed;
   bottom: ${props => props.isMobile ? '1rem' : '1rem'};
   ${props => props.isMobile ? 'right: 1rem;' : 'right: 1rem;'}

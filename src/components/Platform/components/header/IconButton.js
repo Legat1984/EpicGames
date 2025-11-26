@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const StyledIconButton = styled.button`
+const StyledIconButton = styled(({ theme, ...props }) => <button {...props} />)`
   color: ${props => props.theme.textSecondary};
   padding: 0.5rem;
   border-radius: 6px;
