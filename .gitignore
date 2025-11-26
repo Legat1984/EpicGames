@@ -4,6 +4,10 @@
 __pycache__/
 *.o
 *.obj
+dist/
+build/
+target/
+*.class
 *.exe
 *.dll
 *.so
@@ -16,7 +20,7 @@ venv/
 .venv/
 .env
 .env.local
-*.env.*
+.env.*
 
 # Logs and temp files
 *.log
@@ -30,24 +34,14 @@ venv/
 *.swp
 *.swo
 
-# OS generated files
-.DS_Store
-Thumbs.db
-
-# Coverage reports
+# Coverage
 coverage/
 htmlcov/
 .coverage
 
-# Build directories
-dist/
-build/
-target/
-.gradle/
-
-# Python specific
-.mypy_cache/
-.pytest_cache/
+# OS
+.DS_Store
+Thumbs.db
 
 # Compressed files
 *.zip
