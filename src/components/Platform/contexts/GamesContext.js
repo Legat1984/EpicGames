@@ -61,11 +61,41 @@ export const GamesProvider = ({ children }) => {
 
   const toggleFavorite = async (gameId) => {
     try {
-      setGames(prevGames =>
-        prevGames.map(game =>
-          game.id === gameId ? { ...game, favorite: !game.favorite } : game
-        )
-      );
+      const currentGame = games.find(game => game.id === gameId);
+      const isFavorite = currentGame ? currentGame.favorite : false;
+
+      let response;
+
+      if (!isFavorite) {
+        // Если игра не избранная, добавляем в избранное на сервере
+        response = await fetch(`${process.env.REACT_APP_API_URL}/api/games/favorite/add/${gameId}`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${localStorage.getItem('token')}`
+          }
+        });
+      } else {
+        // Если игра избранная, убираем из избранного на сервере
+        response = await fetch(`${process.env.REACT_APP_API_URL}/api/games/favorite/remove/${gameId}`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${localStorage.getItem('token')}`
+          }
+        });
+      }
+
+      const result = await response.json();
+
+      if (response.ok && !result.errors) {
+        // После успешной операции на сервере обновляем локальное состояние
+        setGames(prevGames =>
+          prevGames.map(game =>
+            game.id === gameId ? { ...game, favorite: !game.favorite } : game
+          )
+        );
+      }
     } catch (error) {
       console.error('Ошибка при переключении избранного:', error);
       setGames(prevGames =>
