@@ -1,5 +1,7 @@
 import styled from 'styled-components';
 import FavoriteGame from './FavoriteGame';
+import Label from './LableFavorite';
+import { useScreen } from '../../../../contexts/ScreenContext';
 
 const StyledFavoritesBar = styled.div`
   display: flex;
@@ -23,46 +25,21 @@ const StyledFavoritesBar = styled.div`
   }
 `;
 
-const Label = styled.span`
-  position: relative;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  overflow-x: auto;
-  padding: 0.5rem 0;
-  scrollbar-width: thin;
-  
-  &::-webkit-scrollbar {
-    height: 4px;
-  }
-  
-  &::-webkit-scrollbar-track {
-    background: ${props => props.theme.surface};
-  }
-  
-  &::-webkit-scrollbar-thumb {
-    background: ${props => props.theme.primary};
-    border-radius: 2px;
-  }
-  
-  @media (max-width: 768px) {
-    font-size: clamp(0.7rem, 2vw, 0.8rem);
-  }
-`;
-
 const GamesContainer = styled.div`
   display: flex;
   gap: 0.5rem;
 `;
 
 const FavoritesBar = ({ favorites, theme }) => {
+  const { device } = useScreen();
+  
   if (!favorites || favorites.length === 0) {
     return null;
   }
 
   return (
     <StyledFavoritesBar theme={theme}>
-      <Label theme={theme}>ИЗБРАННОЕ:</Label>
+      {device === 'pc' && <Label theme={theme}>ИЗБРАННОЕ:</Label>}
       <GamesContainer>
         {favorites.map(game => (
           <FavoriteGame key={game.id} game={game} theme={theme} />

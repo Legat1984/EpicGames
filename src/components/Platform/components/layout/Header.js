@@ -24,6 +24,7 @@ const Header = ({ theme, toggleTheme, setShowMobileMenu, activeTab, onTabChange,
           <Logo theme={theme} />
           <Navigation theme={theme} activeTab={activeTab} onTabChange={onTabChange} />
           <HeaderActions 
+            favorites={favorites}
             toggleTheme={toggleTheme} 
             setShowMobileMenu={setShowMobileMenu} 
             theme={theme} 
