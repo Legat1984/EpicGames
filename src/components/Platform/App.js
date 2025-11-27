@@ -113,6 +113,10 @@ const App = () => {
             </RecommendedSection>
           </>
         );
+      case 'favorites':
+        return (
+          <FavoritesManager theme={currentTheme} />
+        );
       case 'games':
         return (
           <>

@@ -18,6 +18,94 @@ export const UserProvider = ({ children }) => {
         window.location.href = '/';
     }, []);
 
+    // Функция для проверки, является ли игра избранной
+    const isGameFavorite = useCallback((gameId) => {
+        return user && user.favoriteGames && user.favoriteGames.includes(gameId);
+    }, [user]);
+
+    // Функция для добавления игры в избранное
+    const addToFavorites = async (gameId) => {
+        if (!user || !isAuthenticated) {
+            console.error('Пользователь не аутентифицирован');
+            return false;
+        }
+
+        try {
+            const token = localStorage.getItem('token');
+            const response = await fetch(`${process.env.REACT_APP_API_URL}/api/users/favorite/add/${gameId}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                }
+            });
+
+            const data = await response.json();
+            if (response.ok) {
+                // Обновляем пользователя в состоянии и в localStorage
+                const updatedUser = {
+                    ...user,
+                    favoriteGames: [...(user.favoriteGames || []), gameId]
+                };
+                setUser(updatedUser);
+                localStorage.setItem('user', JSON.stringify(updatedUser));
+                return true;
+            } else {
+                console.error('Ошибка добавления в избранное:', data.errors);
+                return false;
+            }
+        } catch (error) {
+            console.error('Ошибка при добавлении в избранное:', error);
+            return false;
+        }
+    };
+
+    // Функция для удаления игры из избранного
+    const removeFromFavorites = async (gameId) => {
+        if (!user || !isAuthenticated) {
+            console.error('Пользователь не аутентифицирован');
+            return false;
+        }
+
+        try {
+            const token = localStorage.getItem('token');
+            const response = await fetch(`${process.env.REACT_APP_API_URL}/api/users/favorite/remove/${gameId}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                }
+            });
+
+            const data = await response.json();
+            if (response.ok) {
+                // Обновляем пользователя в состоянии и в localStorage
+                const updatedUser = {
+                    ...user,
+                    favoriteGames: (user.favoriteGames || []).filter(id => id !== gameId)
+                };
+                setUser(updatedUser);
+                localStorage.setItem('user', JSON.stringify(updatedUser));
+                return true;
+            } else {
+                console.error('Ошибка удаления из избранного:', data.errors);
+                return false;
+            }
+        } catch (error) {
+            console.error('Ошибка при удалении из избранного:', error);
+            return false;
+        }
+    };
+
+    // Функция для переключения статуса избранного
+    const toggleFavorite = async (gameId) => {
+        if (isGameFavorite(gameId)) {
+            return await removeFromFavorites(gameId);
+        } else {
+            return await addToFavorites(gameId);
+        }
+    };
+
     const login = (userData, token) => {
         setUser(userData);
         setIsAuthenticated(true);
@@ -28,6 +116,17 @@ export const UserProvider = ({ children }) => {
     const logout = () => {
         handleUnauthenticated();
     };
+
+    const updateUserFavorites = useCallback((updatedFavoriteGames) => {
+        if (user) {
+            const updatedUser = {
+                ...user,
+                favoriteGames: updatedFavoriteGames
+            };
+            setUser(updatedUser);
+            localStorage.setItem('user', JSON.stringify(updatedUser));
+        }
+    }, [user]);
 
     const refreshToken = useCallback(async () => {
         const token = localStorage.getItem('token');
@@ -84,7 +183,17 @@ export const UserProvider = ({ children }) => {
     }, [checkToken]);
 
     return (
-        <UserContext.Provider value={{ user, isAuthenticated, login, logout }}>
+        <UserContext.Provider value={{ 
+            user, 
+            isAuthenticated, 
+            login, 
+            logout, 
+            isGameFavorite, 
+            addToFavorites, 
+            removeFromFavorites, 
+            toggleFavorite,
+            updateUserFavorites
+        }}>
             {children}
         </UserContext.Provider>
     );
