@@ -24,7 +24,7 @@ const StyledFavoritesBar = styled.div`
 `;
 
 const Label = styled.span`
-  position: relative; /* Add relative positioning to contain tooltips */
+  position: relative;
   display: flex;
   align-items: center;
   gap: 0.5rem;
@@ -43,6 +43,10 @@ const Label = styled.span`
   &::-webkit-scrollbar-thumb {
     background: ${props => props.theme.primary};
     border-radius: 2px;
+  }
+  
+  @media (max-width: 768px) {
+    font-size: clamp(0.7rem, 2vw, 0.8rem);
   }
 `;
 
