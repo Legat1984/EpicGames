@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
+import { UserContext } from '../../../contexts/UserContext';
 
 const GamesContext = createContext();
 
@@ -11,6 +12,7 @@ export const useGames = () => {
 };
 
 export const GamesProvider = ({ children }) => {
+  const { isGameFavorite, toggleFavorite: toggleFavoriteUser } = useContext(UserContext);
   const [games, setGames] = useState([]);
   const [favorites, setFavorites] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -31,7 +33,14 @@ export const GamesProvider = ({ children }) => {
         }
 
         const gamesData = await response.json();
-        setGames(gamesData);
+        
+        // Добавляем информацию об избранном к каждой игре
+        const gamesWithFavoriteStatus = gamesData.map(game => ({
+          ...game,
+          favorite: isGameFavorite(game.id)
+        }));
+        
+        setGames(gamesWithFavoriteStatus);
       } catch (error) {
         console.error('Ошибка получения списка игр:', error);
         setError(error.message);
@@ -41,28 +50,25 @@ export const GamesProvider = ({ children }) => {
     };
 
     fetchGames();
-  }, []);
+  }, [isGameFavorite]);
 
   useEffect(() => {
     setFavorites(games.filter(game => game.favorite));
   }, [games]);
 
   const toggleFavorite = async (gameId) => {
-    try {
-      // Update the game's favorite status in the state
+    // Сначала обновляем статус на сервере через UserContext
+    const success = await toggleFavoriteUser(gameId);
+    
+    if (success) {
+      // Обновляем локальное состояние игр
       setGames(prevGames => 
         prevGames.map(game => 
           game.id === gameId ? { ...game, favorite: !game.favorite } : game
         )
       );
-    } catch (error) {
-      console.error('Ошибка при переключении избранного:', error);
-      // Revert the change if API call fails
-      setGames(prevGames => 
-        prevGames.map(game => 
-          game.id === gameId ? { ...game, favorite: !game.favorite } : game
-        )
-      );
+    } else {
+      console.error('Ошибка при переключении избранного');
     }
   };
 
