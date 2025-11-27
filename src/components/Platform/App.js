@@ -73,7 +73,14 @@ const App = () => {
 
   const [isMobile, setIsMobile] = useState(false);
   const [showMobileMenu, setShowMobileMenu] = useState(false);
-  const [currentTheme, setCurrentTheme] = useState({ ...darkTheme, mode: 'dark' });
+  const [currentTheme, setCurrentTheme] = useState(() => {
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme) {
+      const parsedTheme = JSON.parse(savedTheme);
+      return parsedTheme;
+    }
+    return { ...darkTheme, mode: 'dark' };
+  });
   const [activeTab, setActiveTab] = useState(() => {
     const savedTab = localStorage.getItem('activeTab');
     return savedTab || 'home';
@@ -92,6 +99,11 @@ const App = () => {
   useEffect(() => {
     localStorage.setItem('activeTab', activeTab);
   }, [activeTab]);
+
+  // Сохраняем тему в localStorage при её изменении
+  useEffect(() => {
+    localStorage.setItem('theme', JSON.stringify(currentTheme));
+  }, [currentTheme]);
 
   const toggleTheme = () => {
     if (currentTheme.mode === 'dark') {
