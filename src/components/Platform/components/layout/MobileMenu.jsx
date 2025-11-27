@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
-import { X } from 'lucide-react';
+import CloseButton from '../main/CloseButton';
 
 const MobileMenuStyled = styled(({ isOpen, theme, ...props }) => <div {...props} />)`
   position: fixed;
@@ -74,7 +74,6 @@ const MobileMenu = ({
   onTabChange,
   onLogout
 }) => {
-  // Prevent background scrolling when mobile menu is open
   useEffect(() => {
     if (showMobileMenu) {
       document.body.style.overflow = 'hidden';
@@ -90,7 +89,6 @@ const MobileMenu = ({
   const handleTabChange = (label, index) => {
     setShowMobileMenu(false);
     
-    // Map labels to tab keys
     if(label === 'Главная') {
       onTabChange('home');
     } else if(label === 'Игры') {
@@ -111,9 +109,7 @@ const MobileMenu = ({
       <MobileMenuStyled isOpen={showMobileMenu} theme={theme}>
         <MobileMenuHeader>
           <h3>Меню</h3>
-          <button onClick={() => setShowMobileMenu(false)}>
-            <X size={24} />
-          </button>
+          <CloseButton onClick={() => setShowMobileMenu(false)} />
         </MobileMenuHeader>
         <MobileMenuNav>
           {menuItems.map((item, index) => (

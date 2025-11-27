@@ -1,6 +1,7 @@
 import React, { useRef, useEffect } from 'react';
 import styled, { css } from 'styled-components';
-import { X, Send, Users, Gamepad2 } from 'lucide-react';
+import { Send, Users, Gamepad2 } from 'lucide-react';
+import CloseButton from '../main/CloseButton';
 
 const Overlay = styled(({ show, isMobile, ...props }) => <div {...props} />)`
   position: fixed;
@@ -177,9 +178,7 @@ const ChatWindow = ({
       >
         <ChatHeader>
           <h3>Чат</h3>
-          <button onClick={toggleChat}>
-            <X size={20} />
-          </button>
+          <CloseButton onClick={toggleChat} />
         </ChatHeader>
 
         <ChatTabs>
