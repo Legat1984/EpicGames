@@ -15,6 +15,7 @@ export const UserProvider = ({ children }) => {
         setIsAuthenticated(false);
         localStorage.removeItem('user');
         localStorage.removeItem('token');
+        localStorage.removeItem('activeTab');
         window.location.href = '/';
     }, []);
 

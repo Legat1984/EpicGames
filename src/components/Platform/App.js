@@ -74,7 +74,10 @@ const App = () => {
   const [isMobile, setIsMobile] = useState(false);
   const [showMobileMenu, setShowMobileMenu] = useState(false);
   const [currentTheme, setCurrentTheme] = useState({ ...darkTheme, mode: 'dark' });
-  const [activeTab, setActiveTab] = useState('home'); // Default to 'home'
+  const [activeTab, setActiveTab] = useState(() => {
+    const savedTab = localStorage.getItem('activeTab');
+    return savedTab || 'home';
+  });
 
   useEffect(() => {
     const checkMobile = () => {
@@ -85,7 +88,10 @@ const App = () => {
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
-
+  // Сохраняем активную вкладку в localStorage при её изменении
+  useEffect(() => {
+    localStorage.setItem('activeTab', activeTab);
+  }, [activeTab]);
 
   const toggleTheme = () => {
     if (currentTheme.mode === 'dark') {
@@ -99,7 +105,7 @@ const App = () => {
 
   // Function to render content based on active tab
   const renderContent = () => {
-    switch(activeTab) {
+    switch (activeTab) {
       case 'home':
         return (
           <>
