@@ -89,10 +89,28 @@ export const GamesProvider = ({ children }) => {
       const result = await response.json();
 
       if (response.ok && !result.errors) {
-        // После успешной операции на сервере обновляем локальное состояние
+        // Получаем текущий объект user из localStorage
+        const userData = JSON.parse(localStorage.getItem('user'));
+        if (userData) {
+          let updatedFavoriteGames = [...userData.favoriteGames];
+          if (!isFavorite) {
+            // Добавляем gameId в массив
+            if (!updatedFavoriteGames.includes(gameId)) {
+              updatedFavoriteGames.push(gameId);
+            }
+          } else {
+            // Убираем gameId из массива
+            updatedFavoriteGames = updatedFavoriteGames.filter(id => id !== gameId);
+          }
+          // Обновляем localStorage
+          userData.favoriteGames = updatedFavoriteGames;
+          localStorage.setItem('user', JSON.stringify(userData));
+        }
+
+        // Обновляем локальное состояние
         setGames(prevGames =>
           prevGames.map(game =>
-            game.id === gameId ? { ...game, favorite: !game.favorite } : game
+            game.id === gameId ? { ...game, favorite: !isFavorite } : game
           )
         );
       }
