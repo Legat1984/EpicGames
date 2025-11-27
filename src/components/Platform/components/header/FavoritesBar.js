@@ -24,11 +24,26 @@ const StyledFavoritesBar = styled.div`
 `;
 
 const Label = styled.span`
-  color: ${props => props.theme.text};
-  font-size: 1rem;
-  white-space: nowrap;
-  flex-shrink: 0;
-  padding: 0 0.5rem;
+  position: relative; /* Add relative positioning to contain tooltips */
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  overflow-x: auto;
+  padding: 0.5rem 0;
+  scrollbar-width: thin;
+  
+  &::-webkit-scrollbar {
+    height: 4px;
+  }
+  
+  &::-webkit-scrollbar-track {
+    background: ${props => props.theme.surface};
+  }
+  
+  &::-webkit-scrollbar-thumb {
+    background: ${props => props.theme.primary};
+    border-radius: 2px;
+  }
 `;
 
 const GamesContainer = styled.div`

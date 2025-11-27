@@ -14,16 +14,14 @@ const Tooltip = styled.div`
   white-space: nowrap;
   z-index: 1000;
   opacity: 0;
-  visibility: hidden;
-  transition: opacity 0.2s, visibility 0.2s;
+  display: none;
+  transition: opacity 0.2s;
   box-shadow: 0 2px 8px rgba(0,0,0,0.15);
   pointer-events: none;
-  margin: 0;
-  padding: 0.25rem 0.5rem;
 
   ${props => props.visible && `
     opacity: 1;
-    visibility: visible;
+    display: block;
   `}
 `;
 
@@ -35,11 +33,12 @@ const StyledFavoriteGame = styled.div`
   gap: 0.25rem;
   min-width: 60px;
   cursor: pointer;
+  overflow: visible;
 
   &:hover ${Tooltip} {
     @media (min-width: 769px) {
+      display: block;
       opacity: 1;
-      visibility: visible;
     }
   }
   
