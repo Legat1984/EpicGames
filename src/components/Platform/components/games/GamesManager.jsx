@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useGames } from '../../contexts/GamesContext';
 import GamesGrid from '../main/GamesGrid';
+import GameModal from '../main/GameModal';
 import styled from 'styled-components';
 
 const LoadingMessage = styled(({ theme, ...props }) => <div {...props} />)`
@@ -23,6 +24,7 @@ const ErrorMessage = styled(({ theme, ...props }) => <div {...props} />)`
 
 const GamesManager = ({ theme }) => {
   const { games, loading, error } = useGames();
+  const [selectedGame, setSelectedGame] = useState(null);
 
   if (error) {
     return <ErrorMessage theme={theme}>Ошибка загрузки игр: {error}</ErrorMessage>;
@@ -32,8 +34,29 @@ const GamesManager = ({ theme }) => {
     return <LoadingMessage theme={theme}>Загрузка игр...</LoadingMessage>;
   }
 
+  const handleGameClick = (game) => {
+    setSelectedGame(game);
+  };
+
+  const handleCloseModal = () => {
+    setSelectedGame(null);
+  };
+
   return (
-    <GamesGrid games={games} theme={theme} />
+    <>
+      <GamesGrid 
+        games={games} 
+        theme={theme} 
+        onGameClick={handleGameClick}
+      />
+      {selectedGame && (
+        <GameModal 
+          game={selectedGame} 
+          onClose={handleCloseModal} 
+          theme={theme} 
+        />
+      )}
+    </>
   );
 };
 
