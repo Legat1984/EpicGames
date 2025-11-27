@@ -1,1 +1,8 @@
-(src/components/Platform/components/main/GameModal.jsx)
+node_modules/
+.env
+.env.local
+npm-debug.log
+.DS_Store
+logs/
+coverage/
+*.log
