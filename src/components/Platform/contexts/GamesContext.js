@@ -31,7 +31,19 @@ export const GamesProvider = ({ children }) => {
         }
 
         const gamesData = await response.json();
-        setGames(gamesData);
+        // Получаем данные пользователя из localStorage
+        const user = JSON.parse(localStorage.getItem('user'));
+
+        // Преобразуем массив избранных ID в Set для быстрого поиска
+        const favoriteGameIds = user && user.favoriteGames ? new Set(user.favoriteGames) : new Set();
+
+        // Добавляем свойство favorite к каждой игре
+        const gamesWithFavorites = gamesData.map(game => ({
+          ...game,
+          favorite: favoriteGameIds.has(game.id)
+        }));
+
+        setGames(gamesWithFavorites);
       } catch (error) {
         console.error('Ошибка получения списка игр:', error);
         setError(error.message);
@@ -49,17 +61,15 @@ export const GamesProvider = ({ children }) => {
 
   const toggleFavorite = async (gameId) => {
     try {
-      // Update the game's favorite status in the state
-      setGames(prevGames => 
-        prevGames.map(game => 
+      setGames(prevGames =>
+        prevGames.map(game =>
           game.id === gameId ? { ...game, favorite: !game.favorite } : game
         )
       );
     } catch (error) {
       console.error('Ошибка при переключении избранного:', error);
-      // Revert the change if API call fails
-      setGames(prevGames => 
-        prevGames.map(game => 
+      setGames(prevGames =>
+        prevGames.map(game =>
           game.id === gameId ? { ...game, favorite: !game.favorite } : game
         )
       );
