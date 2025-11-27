@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import Tooltip from '../../../../components/Tooltip';
 
 const StyledFavoriteGame = styled.div`
   position: relative;
@@ -20,9 +21,11 @@ const StyledFavoriteGame = styled.div`
 
 const FavoriteGame = ({ game, theme }) => {
   return (
-    <StyledFavoriteGame theme={theme}>
-      <img src={game.image} alt={game.title} title={game.title} />
-    </StyledFavoriteGame>
+    <Tooltip content={game.title} theme={theme}>
+      <StyledFavoriteGame theme={theme}>
+        <img src={game.image} alt={game.title} />
+      </StyledFavoriteGame>
+    </Tooltip>
   );
 };
 
