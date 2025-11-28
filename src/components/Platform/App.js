@@ -108,8 +108,11 @@ const App = () => {
     }
   }, [selectedGame]);
 
-  // Отслеживаем изменения в localStorage и обновляем состояние
+  // Отслеживаем изменения в localStorage и обновляем состояние, а также обрабатываем смену вкладок
   useEffect(() => {
+    // Сохраняем активную вкладку в localStorage
+    localStorage.setItem('activeTab', activeTab);
+
     const handleStorageChange = (e) => {
       if (e.key === 'SelectedGame') {
         const newSelectedGame = e.newValue ? JSON.parse(e.newValue) : null;
@@ -117,13 +120,22 @@ const App = () => {
       }
     };
 
+    // Обрабатываем смену вкладок
+    if (activeTab !== 'games') {
+      localStorage.removeItem('SelectedGame');
+      setSelectedGame(null); // Также сбрасываем состояние
+    } else {
+      // При переходе на вкладку "games" проверяем текущее значение в localStorage
+      const storedGame = localStorage.getItem('SelectedGame');
+      if (storedGame) {
+        setSelectedGame(JSON.parse(storedGame));
+      } else {
+        setSelectedGame(null);
+      }
+    }
+
     window.addEventListener('storage', handleStorageChange);
     return () => window.removeEventListener('storage', handleStorageChange);
-  }, []);
-
-  // Сохраняем активную вкладку в localStorage при её изменении
-  useEffect(() => {
-    localStorage.setItem('activeTab', activeTab);
   }, [activeTab]);
 
   // Сохраняем тему в localStorage при её изменении
@@ -143,7 +155,6 @@ const App = () => {
 
   // Function to render content based on active tab
   const renderContent = () => {
-    if (activeTab !== 'games') localStorage.removeItem("SelectedGame");
     const isGameSelected = !!selectedGame;
     switch (activeTab) {
       case 'home':
