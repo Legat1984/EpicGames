@@ -18,10 +18,11 @@ const StyledGameCard = styled(({ theme, ...props }) => <div {...props} />)`
 `;
 
 const PlayButton = styled.div`
-  width: 80%;
-  height: 80%;
+  top: 10%;
+  left: 10%;
+  width: 75%;
+  height: 75%;
   position: absolute;
-  margin: 0 auto;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -32,19 +33,19 @@ const PlayButton = styled.div`
 `;
 
 const PlayText = styled.span`
-  color: white;
+  color: rgba(128, 204, 128, 0.4);
   font-size: 1.5rem;
   font-weight: bold;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+  opacity: 1;
+  transition: opacity 0.3s ease;
 `;
 
 const GameCard = ({ game, theme, onClick }) => {
   return (
     <StyledGameCard theme={theme}>
-      <PlayButton onClick={onClick}>
-        <PlayText>Играть</PlayText>
-      </PlayButton>
-      <GameImage src={game.image} alt={game.title} />
+      <PlayButton onClick={onClick} />
+      <PlayText>Играть</PlayText>
+      <GameImage src={game.image} alt={game.title} />        
       <GameContent game={game} theme={theme} />
     </StyledGameCard>
   );
