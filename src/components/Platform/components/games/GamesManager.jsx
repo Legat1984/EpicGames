@@ -22,20 +22,12 @@ const ErrorMessage = styled(({ theme, ...props }) => <div {...props} />)`
   font-size: 1.2rem;
 `;
 
-const GamesManager = ({ theme }) => {
+const GamesManager = ({ theme, selectedGame, setSelectedGame }) => {
   const { games, loading, error } = useGames();
-  const [selectedGame, setSelectedGame] = useState(null);
 
   const handleGameClick = (game) => {
-    localStorage.setItem("SelectedGame", JSON.stringify(game));
     setSelectedGame(game);
   };
-
-  const SelectedGamesObject = JSON.parse(localStorage.getItem("SelectedGame"));
-
-  if (!selectedGame && SelectedGamesObject) {
-    setSelectedGame(SelectedGamesObject);
-  }
 
   if (error) {
     return <ErrorMessage theme={theme}>Ошибка загрузки игр: {error}</ErrorMessage>;

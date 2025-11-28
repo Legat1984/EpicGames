@@ -85,6 +85,10 @@ const App = () => {
     const savedTab = localStorage.getItem('activeTab');
     return savedTab || 'home';
   });
+  const [selectedGame, setSelectedGame] = useState(() => {
+    const savedGame = localStorage.getItem('SelectedGame');
+    return savedGame ? JSON.parse(savedGame) : null;
+  });
 
   useEffect(() => {
     const checkMobile = () => {
@@ -93,6 +97,28 @@ const App = () => {
     checkMobile();
     window.addEventListener('resize', checkMobile);
     return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
+  // Синхронизируем состояние selectedGame с localStorage
+  useEffect(() => {
+    if (selectedGame) {
+      localStorage.setItem('SelectedGame', JSON.stringify(selectedGame));
+    } else {
+      localStorage.removeItem('SelectedGame');
+    }
+  }, [selectedGame]);
+
+  // Отслеживаем изменения в localStorage и обновляем состояние
+  useEffect(() => {
+    const handleStorageChange = (e) => {
+      if (e.key === 'SelectedGame') {
+        const newSelectedGame = e.newValue ? JSON.parse(e.newValue) : null;
+        setSelectedGame(newSelectedGame);
+      }
+    };
+
+    window.addEventListener('storage', handleStorageChange);
+    return () => window.removeEventListener('storage', handleStorageChange);
   }, []);
 
   // Сохраняем активную вкладку в localStorage при её изменении
@@ -118,7 +144,7 @@ const App = () => {
   // Function to render content based on active tab
   const renderContent = () => {
     if (activeTab !== 'games') localStorage.removeItem("SelectedGame");
-    const selectedGame = localStorage.getItem("SelectedGame");
+    const isGameSelected = !!selectedGame;
     switch (activeTab) {
       case 'home':
         return (
@@ -136,8 +162,8 @@ const App = () => {
       case 'games':
         return (
           <>
-            {!selectedGame && <HeroSection theme={currentTheme} />}
-            <GamesManager theme={currentTheme} />
+            {!isGameSelected && <HeroSection theme={currentTheme} />}
+            <GamesManager theme={currentTheme} selectedGame={selectedGame} setSelectedGame={setSelectedGame} />
           </>
         );
       case 'shop':
@@ -168,8 +194,8 @@ const App = () => {
       default:
         return (
           <>
-            {!selectedGame && <HeroSection theme={currentTheme} />}
-            <GamesManager theme={currentTheme} />
+            {!isGameSelected && <HeroSection theme={currentTheme} />}
+            <GamesManager theme={currentTheme} selectedGame={selectedGame} setSelectedGame={setSelectedGame} />
           </>
         );
     }
