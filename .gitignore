@@ -1,1 +1,8 @@
-(src/components/Platform/App.js)
+node_modules/
+.env
+.env.local
+npm-debug.log
+.DS_Store
+logs/
+coverage/
+*.log
