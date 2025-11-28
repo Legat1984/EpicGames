@@ -120,14 +120,17 @@ const GameModal = ({ game, onClose, theme }) => {
               <SectionTitle theme={theme}>Текущие игры</SectionTitle>
               <p>Список текущих игр (пока пуст)</p>
             </Section>
+
             <Section theme={theme}>
               <SectionTitle theme={theme}>Игры, собирающие игроков</SectionTitle>
               <p>Список игр, в которые можно присоединиться (пока пуст)</p>
             </Section>
+
             <Section theme={theme}>
               <SectionTitle theme={theme}>Приглашения в игру</SectionTitle>
               <p>Список приглашений (пока пуст)</p>
             </Section>
+            
             <Button theme={theme} onClick={() => console.log('Создать игру')}>
               Создать игру
             </Button>
