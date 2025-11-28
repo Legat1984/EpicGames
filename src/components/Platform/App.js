@@ -118,6 +118,7 @@ const App = () => {
   // Function to render content based on active tab
   const renderContent = () => {
     if (activeTab !== 'games') localStorage.removeItem("SelectedGame");
+    const selectedGame = localStorage.getItem("SelectedGame");
     switch (activeTab) {
       case 'home':
         return (
@@ -135,7 +136,7 @@ const App = () => {
       case 'games':
         return (
           <>
-            <HeroSection theme={currentTheme} />
+            {!selectedGame && <HeroSection theme={currentTheme} />}
             <GamesManager theme={currentTheme} />
           </>
         );
@@ -167,7 +168,7 @@ const App = () => {
       default:
         return (
           <>
-            <HeroSection theme={currentTheme} />
+            {!selectedGame && <HeroSection theme={currentTheme} />}
             <GamesManager theme={currentTheme} />
           </>
         );
