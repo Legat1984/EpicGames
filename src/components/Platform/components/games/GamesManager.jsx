@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useGames } from '../../contexts/GamesContext';
 import GamesGrid from '../main/GamesGrid';
-import GameModal from '../main/GameModal';
+import GameSettingsContent from './GameSettingsContent';
 import styled from 'styled-components';
 
 const LoadingMessage = styled(({ theme, ...props }) => <div {...props} />)`
@@ -26,6 +26,22 @@ const GamesManager = ({ theme }) => {
   const { games, loading, error } = useGames();
   const [selectedGame, setSelectedGame] = useState(null);
 
+  const handleGameClick = (game) => {
+    localStorage.setItem("SelectedGame", JSON.stringify(game));
+    setSelectedGame(game);
+  };
+
+  const handleCloseModal = () => {
+    localStorage.removeItem("SelectedGame");
+    setSelectedGame(null);
+  };
+
+  const SelectedGamesObject = JSON.parse(localStorage.getItem("SelectedGame"));
+
+  if (!selectedGame && SelectedGamesObject) {
+    setSelectedGame(SelectedGamesObject);
+  }
+
   if (error) {
     return <ErrorMessage theme={theme}>Ошибка загрузки игр: {error}</ErrorMessage>;
   }
@@ -34,28 +50,25 @@ const GamesManager = ({ theme }) => {
     return <LoadingMessage theme={theme}>Загрузка игр...</LoadingMessage>;
   }
 
-  const handleGameClick = (game) => {
-    setSelectedGame(game);
-  };
-
-  const handleCloseModal = () => {
-    setSelectedGame(null);
-  };
+  const renderContent = () => {
+    if (selectedGame) {
+      return <GameSettingsContent
+       game={selectedGame}
+       onClose={handleCloseModal}
+       theme={theme}
+     />
+   } else {
+     return <GamesGrid
+       games={games}
+       theme={theme}
+       onGameClick={handleGameClick}
+     />
+   }
+  }
 
   return (
     <>
-      <GamesGrid 
-        games={games} 
-        theme={theme} 
-        onGameClick={handleGameClick}
-      />
-      {selectedGame && (
-        <GameModal 
-          game={selectedGame} 
-          onClose={handleCloseModal} 
-          theme={theme} 
-        />
-      )}
+      {renderContent()}
     </>
   );
 };
