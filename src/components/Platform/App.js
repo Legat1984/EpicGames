@@ -117,6 +117,7 @@ const App = () => {
 
   // Function to render content based on active tab
   const renderContent = () => {
+    if (activeTab !== 'games') localStorage.removeItem("SelectedGame");
     switch (activeTab) {
       case 'home':
         return (

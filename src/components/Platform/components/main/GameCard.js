@@ -18,11 +18,10 @@ const StyledGameCard = styled(({ theme, ...props }) => <div {...props} />)`
 `;
 
 const PlayButton = styled.div`
+  width: 80%;
+  height: 80%;
   position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
+  margin: 0 auto;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -30,10 +29,6 @@ const PlayButton = styled.div`
   opacity: 0;
   transition: opacity 0.3s ease;
   z-index: 10;
-  
-  ${StyledGameCard}:hover & {
-    opacity: 1;
-  }
 `;
 
 const PlayText = styled.span`
@@ -45,8 +40,8 @@ const PlayText = styled.span`
 
 const GameCard = ({ game, theme, onClick }) => {
   return (
-    <StyledGameCard theme={theme} onClick={onClick}>
-      <PlayButton>
+    <StyledGameCard theme={theme}>
+      <PlayButton onClick={onClick}>
         <PlayText>Играть</PlayText>
       </PlayButton>
       <GameImage src={game.image} alt={game.title} />
