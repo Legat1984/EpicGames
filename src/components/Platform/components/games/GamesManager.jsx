@@ -31,11 +31,6 @@ const GamesManager = ({ theme }) => {
     setSelectedGame(game);
   };
 
-  const handleCloseModal = () => {
-    localStorage.removeItem("SelectedGame");
-    setSelectedGame(null);
-  };
-
   const SelectedGamesObject = JSON.parse(localStorage.getItem("SelectedGame"));
 
   if (!selectedGame && SelectedGamesObject) {
@@ -54,7 +49,6 @@ const GamesManager = ({ theme }) => {
     if (selectedGame) {
       return <GameSettingsContent
        game={selectedGame}
-       onClose={handleCloseModal}
        theme={theme}
      />
    } else {
