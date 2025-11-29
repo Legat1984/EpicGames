@@ -48,7 +48,7 @@ const TooltipText = styled.div`
   `}
 `;
 
-const Tooltip = ({ children, content, position = 'bottom', theme, delay = 500 }) => {
+const Tooltip = ({ children, content, position = 'bottom', theme, delay = 200 }) => {
   const [visible, setVisible] = useState(false);
   const [positionStyle, setPositionStyle] = useState({ left: 0, top: 0 });
   const [timeoutId, setTimeoutId] = useState(null);

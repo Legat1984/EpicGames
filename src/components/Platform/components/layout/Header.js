@@ -14,7 +14,7 @@ const StyledHeader = styled(({ theme, ...props }) => <header {...props} />)`
   position: relative;
 `;
 
-const Header = ({ theme, toggleTheme, setShowMobileMenu, activeTab, onTabChange, onSettingsClick, onLogout }) => {
+const Header = ({ theme, toggleTheme, setShowMobileMenu, activeTab, onTabChange, onSettingsClick, setSelectedGame, onLogout }) => {
   const { favorites } = useGames();
   
   return (
@@ -32,7 +32,7 @@ const Header = ({ theme, toggleTheme, setShowMobileMenu, activeTab, onTabChange,
             onLogout={onLogout}
           />
         </TopHeader>
-        <FavoritesBar favorites={favorites} theme={theme} />
+        <FavoritesBar favorites={favorites} theme={theme} setSelectedGame={setSelectedGame} />
       </HeaderContent>
     </StyledHeader>
   );

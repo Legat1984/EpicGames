@@ -74,7 +74,7 @@ const App = () => {
   const [isMobile, setIsMobile] = useState(false);
   const [showMobileMenu, setShowMobileMenu] = useState(false);
   const [currentTheme, setCurrentTheme] = useState(() => {
-    const savedTheme = localStorage.getItem('theme');
+  const savedTheme = localStorage.getItem('theme');
     if (savedTheme) {
       const parsedTheme = JSON.parse(savedTheme);
       return parsedTheme;
@@ -234,6 +234,7 @@ const App = () => {
                 activeTab={activeTab}
                 onTabChange={setActiveTab}
                 onSettingsClick={() => setActiveTab('settings')}
+                setSelectedGame={setSelectedGame}
                 onLogout={logout}
               />
 
