@@ -19,10 +19,18 @@ const StyledFavoriteGame = styled.div`
   }
 `;
 
-const FavoriteGame = ({ game, theme, setSelectedGame }) => {
+const FavoriteGame = ({ game, theme, setSelectedGame, onTabChange }) => {
+
+  const handleClick = () => {
+    setSelectedGame(game);
+    if (onTabChange) {
+      onTabChange('games');
+    }
+  };
+
   return (
     <Tooltip content={game.title} theme={theme}>
-      <StyledFavoriteGame theme={theme} onClick={() => setSelectedGame(game)}>
+      <StyledFavoriteGame theme={theme} onClick={handleClick}>
         <img src={game.image} alt={game.title} />
       </StyledFavoriteGame>
     </Tooltip>

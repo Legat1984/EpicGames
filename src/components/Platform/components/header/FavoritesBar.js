@@ -30,7 +30,7 @@ const GamesContainer = styled.div`
   gap: 0.5rem;
 `;
 
-const FavoritesBar = ({ favorites, theme, setSelectedGame }) => {
+const FavoritesBar = ({ favorites, theme, setSelectedGame, onTabChange }) => {
   const { device } = useScreen();
   
   if (!favorites || favorites.length === 0) {
@@ -42,7 +42,7 @@ const FavoritesBar = ({ favorites, theme, setSelectedGame }) => {
       {device === 'pc' && <Label theme={theme}>ИЗБРАННОЕ:</Label>}
       <GamesContainer>
         {favorites.map(game => (
-          <FavoriteGame key={game.id} game={game} theme={theme} setSelectedGame={setSelectedGame} />
+          <FavoriteGame key={game.id} game={game} theme={theme} setSelectedGame={setSelectedGame} onTabChange={onTabChange} />
         ))}
       </GamesContainer>
     </StyledFavoritesBar>

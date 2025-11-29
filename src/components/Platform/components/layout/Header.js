@@ -32,7 +32,7 @@ const Header = ({ theme, toggleTheme, setShowMobileMenu, activeTab, onTabChange,
             onLogout={onLogout}
           />
         </TopHeader>
-        <FavoritesBar favorites={favorites} theme={theme} setSelectedGame={setSelectedGame} />
+        <FavoritesBar favorites={favorites} theme={theme} setSelectedGame={setSelectedGame} onTabChange={onTabChange} />
       </HeaderContent>
     </StyledHeader>
   );

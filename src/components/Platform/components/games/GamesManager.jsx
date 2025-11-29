@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useGames } from '../../contexts/GamesContext';
 import GamesGrid from '../main/GamesGrid';
 import GameSettingsContent from './GameSettingsContent';
