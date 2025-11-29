@@ -22,7 +22,7 @@ const StyledFavoriteGame = styled.div`
 const FavoriteGame = ({ game, theme, setSelectedGame }) => {
   return (
     <Tooltip content={game.title} theme={theme}>
-      <StyledFavoriteGame theme={theme} onClick={setSelectedGame(game)}>
+      <StyledFavoriteGame theme={theme} onClick={() => setSelectedGame(game)}>
         <img src={game.image} alt={game.title} />
       </StyledFavoriteGame>
     </Tooltip>
