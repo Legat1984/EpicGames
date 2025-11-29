@@ -34,7 +34,7 @@ const NavButton = styled(({ theme, ...props }) => <button {...props} />)`
   }
 `;
 
-const Navigation = ({ theme, activeTab, onTabChange }) => {
+const Navigation = ({ theme, activeTab, onTabChange, setSelectedGame }) => {
   return (
     <StyledNavigation theme={theme}>
       <NavButton 
@@ -51,6 +51,8 @@ const Navigation = ({ theme, activeTab, onTabChange }) => {
         className={activeTab === 'games' ? 'active' : ''} 
         onClick={(e) => {
           e.preventDefault();
+          localStorage.removeItem('SelectedGame');
+          setSelectedGame(null);
           onTabChange('games');
         }}
         theme={theme}
