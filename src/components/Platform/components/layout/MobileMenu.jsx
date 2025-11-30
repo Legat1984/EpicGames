@@ -72,7 +72,8 @@ const MobileMenu = ({
   menuItems,
   activeTab,
   onTabChange,
-  onLogout
+  onLogout,
+  setSelectedGame
 }) => {
   useEffect(() => {
     if (showMobileMenu) {
@@ -92,6 +93,8 @@ const MobileMenu = ({
     if(label === 'Главная') {
       onTabChange('home');
     } else if(label === 'Игры') {
+      localStorage.removeItem('SelectedGame');
+      setSelectedGame(null);
       onTabChange('games');
     } else if(label === 'Магазин') {
       onTabChange('shop');

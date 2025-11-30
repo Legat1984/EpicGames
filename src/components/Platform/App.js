@@ -252,6 +252,7 @@ const App = () => {
                 activeTab={activeTab}
                 onTabChange={setActiveTab}
                 onLogout={logout}
+                setSelectedGame={setSelectedGame}
               />
             </Container>
           </ErrorBoundary>
